@@ -24,4 +24,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Find tutorials in the [Blue Krill Blog](http://www.bluekrill.com/blog/)
 
+License
+This project is licensed under the MIT License - see the LICENSE.md file for details
 

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Container, Row, Col } from "reactstrap";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-import * as actionMethods from '../../store/actions/index.actions';
-import Post from '../../components/Post/Post';
+import * as actionMethods from "../../store/actions/index.actions";
+import Post from "../../components/Post/Post";
 
 class Blog extends Component{
 
@@ -14,8 +14,7 @@ class Blog extends Component{
 
   readMoreHandler = (id) => {
     //Send selected post to Post component 
-    console.log('Read more clicked for ' + id);
-    this.props.history.push('/post?id=' + id);
+    this.props.history.push("/post?id=" + id);
   }
 
   render(){

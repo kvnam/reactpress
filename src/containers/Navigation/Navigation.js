@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav } from 'reactstrap';
+import React, { Component } from "react";
+import { Navbar, NavbarBrand, Nav } from "reactstrap";
 
-import NavigationItem from '../../components/NavigationItem/NavigationItem';
+import NavigationItem from "../../components/NavigationItem/NavigationItem";
 
 const navItems = [
   {
-    link: '/',
-    linkName: 'BLOG',
+    link: "/",
+    linkName: "BLOG",
     isVisible: true
   },
   {
-    link: '/auth',
-    linkName: 'SIGN IN/SIGN UP',
+    link: "/auth",
+    linkName: "SIGN IN/SIGN UP",
     isVisible: true
   }
 ];

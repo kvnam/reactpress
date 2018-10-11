@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Container, Row, Col } from 'reactstrap';
-import ReactHtmlParser from 'react-html-parser';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Container, Row, Col } from "reactstrap";
+import ReactHtmlParser from "react-html-parser";
 
-import * as actionMethods from '../../store/actions/index.actions';
+import * as actionMethods from "../../store/actions/index.actions";
 
 class singlePost extends Component {
 
   componentDidMount(){
     //Call Load Post Action Method after retrieving ID from URL
     const params = new URLSearchParams(this.props.location.search);
-    const pID = params.get('id');
+    const pID = params.get("id");
     this.props.onLoadSinglePost(pID);
   }
 

@@ -10,22 +10,22 @@ const initialState = {
 const postsReducer = (state = initialState, action) => {
   let newState = null;
   switch(action.type){
-    case 'GET_ALL_POSTS': newState = {
+    case "GET_ALL_POSTS": newState = {
                             ...state,
                             posts: action.posts
                           };
                           return newState;
-    case 'GET_ALL_POSTS_FAIL': newState = {
+    case "GET_ALL_POSTS_FAIL": newState = {
                                 ...state,
                                 error: action.error
                               };
                               return newState;
-    case 'SINGLE_POST_SUCCESS': newState = {
+    case "SINGLE_POST_SUCCESS": newState = {
                                   ...state,
                                   singlePost: action.post
                                 };
                                 return newState;
-    case 'SINGLE_POST_FAIL': newState = {
+    case "SINGLE_POST_FAIL": newState = {
                                   ...state,
                                   error: action.error
                                 };

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Row, Col, Button } from 'reactstrap';
-import ReactHtmlParser from 'react-html-parser';
+import React from "react";
+import { Row, Col, Button } from "reactstrap";
+import ReactHtmlParser from "react-html-parser";
 
-import './Post.css';
+import "./Post.css";
 
 const post = props => {
 
