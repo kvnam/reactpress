@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Badge } from "reactstrap";
 import ReactHtmlParser from "react-html-parser";
 
 import * as actionMethods from "../../store/actions/index.actions";
@@ -16,10 +16,15 @@ class singlePost extends Component {
 
   render(){
     let content = <h2>Post loading...</h2>;
+    let catTags = null;
     if(this.props.post !== null){
+      catTags = this.props.post.categoryTags.map(cats => {
+        return <h3 key={cats.id} className="cat-tags"><Badge color="primary">{cats.name}</Badge></h3>
+      });
       content = (
         <React.Fragment>
           <Col xs="12" md="12">{ReactHtmlParser(this.props.post.title.rendered)}</Col>
+          <Col xs="12" md="12">{catTags}</Col>
           <Col xs="12" md="12"><img className="post-img" alt={this.props.post.title.rendered} src={this.props.post.medialink} /></Col>
           <Col xs="12" md="12">{ReactHtmlParser(this.props.post.content.rendered)}</Col>
         </React.Fragment>

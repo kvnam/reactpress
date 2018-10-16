@@ -1,4 +1,5 @@
 import axios from "../../axios-wp";
+import axiosOrig from 'axios';
 
 export const loadAllPosts = (perpage) => {
   //Load all posts available on WordPress site
@@ -34,20 +35,31 @@ export const loadAllPosts = (perpage) => {
   }
 }
 
+function getMedia(mediaId){
+  return axios.get("http://dev.bluekrill.com/demoWP/wp-json/wp/v2/media/" + mediaId);
+}
+
+function getCats(catIds){
+  return axios.get("http://dev.bluekrill.com/demoWP/wp-json/wp/v2/categories?include=" + catIds.join(","));
+}
+
 export const loadSinglePost = pid => {
   return dispatch => {
     axios.get("/wp/v2/posts/" + pid)
       .then(post => {
         //Retrieve featured image
         let mediaId = post.data.featured_media;
-        axios.get("/wp/v2/media/" + mediaId)
-          .then(response => {
+        axiosOrig.all([getMedia(mediaId), getCats(post.data.categories)])
+          .then(axiosOrig.spread(function(mediaRes, catRes) {
             let postRes = {
               ...post.data,
-              medialink: response.data.guid.rendered
+              medialink: mediaRes.data.guid.rendered,
+              categoryTags: [
+                ...catRes.data
+              ]
             };
             dispatch({type: "SINGLE_POST_SUCCESS", post: postRes})
-          })
+          }))
           .catch(err => {
             dispatch({type: "SINGLE_POST_FAIL", error: err});    
           })
