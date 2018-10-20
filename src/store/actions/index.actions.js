@@ -1,4 +1,5 @@
 export {
   loadAllPosts,
-  loadSinglePost
+  loadSinglePost,
+  searchAllPosts
 } from './posts.actions';

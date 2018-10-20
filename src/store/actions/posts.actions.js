@@ -69,3 +69,15 @@ export const loadSinglePost = pid => {
       });
   }
 }
+
+export const searchAllPosts = term => {
+  return dispatch => {
+    axios.get('/wp/v2/posts?search=' + term)
+      .then(postResults => {
+        //Retrieve featured images
+        dispatch({type: 'SEARCH_POSTS_SUCCESS', posts: postResults.data});
+      }).catch(err => {
+        dispatch({type: "SEARCH_POSTS_FAIL", error: err});
+      });
+  };
+}
