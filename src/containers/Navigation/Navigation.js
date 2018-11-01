@@ -10,8 +10,13 @@ const navItems = [
     isVisible: true
   },
   {
-    link: "/auth",
-    linkName: "SIGN IN/SIGN UP",
+    link: "/auth/signin",
+    linkName: "LOG IN",
+    isVisible: true
+  },
+  {
+    link: "/auth/signup",
+    linkName: "SIGN UP",
     isVisible: true
   }
 ];
