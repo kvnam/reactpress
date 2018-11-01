@@ -2,17 +2,28 @@ import React, { Component } from "react";
 import { Container, Row, Col, InputGroup, InputGroupAddon, InputGroupText, Input, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Alert } from 'reactstrap';
 
 import * as actionMethods from "../../store/actions/index.actions";
 import Post from "../../components/Post/Post";
 
 class Blog extends Component{
   state = {
-    searchTerm: ''
+    searchTerm: '',
+    onAlert: false,
+    internalError: null
   };
 
   componentDidMount(){
     this.props.loadAllPosts(5);
+  }
+
+  onAlertShow = () => {
+    this.setState({onAlert: true});
+  }
+
+  onAlertDismiss = () => {
+    this.setState({onAlert: false, internalError: null});
   }
 
   readMoreHandler = (id) => {
@@ -23,6 +34,10 @@ class Blog extends Component{
   onSearchHandler = () => {
     if(this.state.searchTerm !== ''){
       this.props.searchAllPosts(this.state.searchTerm);
+    }else{
+      this.setState((state) => {
+        return {internalError: 'Search Term cannot be empty!', onAlert: true};
+      })
     }
   }
 
@@ -46,6 +61,12 @@ class Blog extends Component{
     
     return(
       <Container>
+        {this.props.error ? (<Alert color="danger" isOpen={this.state.onAlert} toggle={this.onAlertDismiss}>
+          {this.props.error}
+        </Alert>) : null }
+        {this.state.internalError ? (<Alert color="danger" isOpen={this.state.onAlert} toggle={this.onAlertDismiss}>
+          {this.state.internalError}
+        </Alert>) : null }
         <Row>
           <Col xs="12" md="4"><h1>All Posts</h1></Col>
           <Col xs="12" md="8">

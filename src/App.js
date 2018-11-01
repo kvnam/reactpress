@@ -20,7 +20,7 @@ class App extends Component {
         atActive={{opacity: 1}}
         className="switch-wrapper">
         <Route path="/post" exact component={SinglePost} />
-        <Route path="/auth" exact render={() => <div>Signin Data</div>} />
+        <Route path="/auth" exact render={() => <div>Signin Here Data</div>} />
         <Route path="/" exact component={Blog}/>
        </AnimatedSwitch>
       </div>

@@ -75,7 +75,29 @@ export const searchAllPosts = term => {
     axios.get('/wp/v2/posts?search=' + term)
       .then(postResults => {
         //Retrieve featured images
-        dispatch({type: 'SEARCH_POSTS_SUCCESS', posts: postResults.data});
+        let mediaIds = [];
+        postResults.data.forEach(post => {
+          mediaIds.push(post.featured_media);
+        });
+        if(mediaIds.length !== 0){
+          axios.get('/wp/v2/media?include='+ mediaIds.join(','))
+            .then(mediaResults => {
+              let updatedPosts = null;
+              updatedPosts = postResults.data.map(post => {
+                mediaResults.data.forEach(media => {
+                  if(media.id === post.featured_media){
+                    post.media_link = media.guid.rendered;
+                  }
+                });
+                return {
+                  ...post
+                };
+              });
+              dispatch({type: 'SEARCH_POSTS_SUCCESS', posts: updatedPosts});
+            }).catch(error => {
+              //Attach a placeholder image
+            })
+        }
       }).catch(err => {
         dispatch({type: "SEARCH_POSTS_FAIL", error: err});
       });
