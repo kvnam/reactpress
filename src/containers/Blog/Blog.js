@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, InputGroup, InputGroupAddon, InputGroupText, Input, Button } from "reactstrap";
+import { Container, Row, Col, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Alert } from 'reactstrap';

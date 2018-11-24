@@ -1,21 +1,27 @@
 import React from 'react';
-import { Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Col, Form, InputGroup, FormGroup, Input, Button, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 const signIn = (props) => {
   return (
     <Col xs="12" md={{size:6, offset: 3}}>
       <h1 style={{textAlign: 'center'}}>Sign In!</h1>
-      <Form>
-        <FormGroup>
-          <Label for="username">Username</Label>
-          <Input type="text" name="username" id="username" placeholder="Enter your username" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Input type="password" name="password" id="password" placeholder="Enter your password" />
-        </FormGroup>
+      <Form autoComplete="false">
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Username</InputGroupText>
+          </InputGroupAddon>
+          <Input type="text" name="username" id="username" placeholder="Enter your username" value={props.uid} onChange={(event) => props.inputChanged(event, "username", "signin")}/>
+        </InputGroup>
+        <br />
+        <InputGroup>
+        <InputGroupAddon addonType="prepend">
+            <InputGroupText>Password</InputGroupText>
+          </InputGroupAddon>
+          <Input type="password" name="password" id="password" placeholder="Enter your password" value={props.pwd} onChange={(event) => props.inputChanged(event, "password", "signin")}/>
+        </InputGroup>
+        <br />
         <FormGroup style={{textAlign: 'center'}}>
-          <Button color="warning">Submit</Button>
+          <Button color="warning" onClick={props.onUserClick}>Submit</Button>
         </FormGroup>
       </Form>
     </Col>
