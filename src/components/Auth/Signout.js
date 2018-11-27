@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 class Signout extends Component{
   componentDidMount(){
     if(this.props.token){
-      console.log('CALLING LOGOUT USER');
+      console.log("CALLING LOGOUT USER");
       this.props.logoutUser();
     }
   }
@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchStateToProps = (dispatch) => {
   return {
-    logoutUser: () => {dispatch({type: 'USER_SIGNOUT'})}
+    logoutUser: () => {dispatch({type: "USER_SIGNOUT"})}
   }
 };
 

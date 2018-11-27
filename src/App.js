@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { Component } from "react";
+import { Switch, Route } from "react-router-dom";
 
-import Navigation from './containers/Navigation/Navigation';
-import Blog from './containers/Blog/Blog';
-import SinglePost from './components/Post/SinglePost';
-import Auth from './containers/Auth/Auth';
-import Dashboard from './containers/Dashboard/Dashboard';
-import './App.css';
+import Navigation from "./containers/Navigation/Navigation";
+import Blog from "./containers/Blog/Blog";
+import SinglePost from "./components/Post/SinglePost";
+import Auth from "./containers/Auth/Auth";
+import Dashboard from "./containers/Dashboard/Dashboard";
+import "./App.css";
 
 class App extends Component {
   render() {

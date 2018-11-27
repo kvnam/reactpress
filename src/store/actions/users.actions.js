@@ -15,7 +15,7 @@ export const userSignup = (user) => {
 export const userSignin = (user) => {
   console.log(`Username ${user.username} password ${user.pwd}`);
   return dispatch => {
-    axios.post('/jwt-auth/v1/token', user)
+    axios.post('/simple-jwt-authentication/v1/token', user)
       .then(response => {
         console.log(response.data);
         let userDets = {
@@ -43,7 +43,7 @@ export const validateToken = (url) => {
         email = localStorage.getItem('email')
       }
       if(token){
-        axios.post('/jwt-auth/v1/token/validate', {},{headers: {'Authorization': 'Bearer' + token}}).then(res => {
+        axios.post('/simple-jwt-authentication/v1/token/validate', {},{headers: {'Authorization': 'Bearer' + token}}).then(res => {
           console.log(res.data.data);
           if(res.data.data.status === 200){
             dispatch({type: actionTypes.VALIDATE_TOKEN_SUCCESS, token:token, email:email, redirectTo: url});

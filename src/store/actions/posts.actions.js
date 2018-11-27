@@ -1,5 +1,5 @@
 import axios from "../../axios-wp";
-import axiosOrig from 'axios';
+import axiosOrig from "axios";
 
 export const loadAllPosts = (perpage) => {
   //Load all posts available on WordPress site
@@ -26,13 +26,13 @@ export const loadAllPosts = (perpage) => {
               };
             });
             dispatch({type: "GET_ALL_POSTS", posts: updatedPosts});    
-          }).catch(err => {
+          }).catch((err) => {
             dispatch({type: "GET_ALL_POSTS_FAIL", error: err});
           });
-      }).catch(err => {
+      }).catch((err) => {
         dispatch({type: "GET_ALL_POSTS_FAIL", error: err});
       });
-  }
+  };
 }
 
 function getMedia(mediaId){
@@ -43,7 +43,7 @@ function getCats(catIds){
   return axios.get("http://dev.bluekrill.com/demoWP/wp-json/wp/v2/categories?include=" + catIds.join(","));
 }
 
-export const loadSinglePost = pid => {
+export const loadSinglePost = (pid) => {
   return dispatch => {
     axios.get("/wp/v2/posts/" + pid)
       .then(post => {
@@ -60,19 +60,19 @@ export const loadSinglePost = pid => {
             };
             dispatch({type: "SINGLE_POST_SUCCESS", post: postRes})
           }))
-          .catch(err => {
+          .catch((err) => {
             dispatch({type: "SINGLE_POST_FAIL", error: err});    
           })
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch({type: "SINGLE_POST_FAIL", error: err});
       });
   }
 }
 
-export const searchAllPosts = term => {
+export const searchAllPosts = (term) => {
   return dispatch => {
-    axios.get('/wp/v2/posts?search=' + term)
+    axios.get("/wp/v2/posts?search=" + term)
       .then(postResults => {
         //Retrieve featured images
         let mediaIds = [];
@@ -80,11 +80,11 @@ export const searchAllPosts = term => {
           mediaIds.push(post.featured_media);
         });
         if(mediaIds.length !== 0){
-          axios.get('/wp/v2/media?include='+ mediaIds.join(','))
+          axios.get("/wp/v2/media?include="+ mediaIds.join(","))
             .then(mediaResults => {
               let updatedPosts = null;
-              updatedPosts = postResults.data.map(post => {
-                mediaResults.data.forEach(media => {
+              updatedPosts = postResults.data.map((post) => {
+                mediaResults.data.forEach((media) => {
                   if(media.id === post.featured_media){
                     post.media_link = media.guid.rendered;
                   }
@@ -93,12 +93,12 @@ export const searchAllPosts = term => {
                   ...post
                 };
               });
-              dispatch({type: 'SEARCH_POSTS_SUCCESS', posts: updatedPosts});
-            }).catch(error => {
+              dispatch({type: "SEARCH_POSTS_SUCCESS", posts: updatedPosts});
+            }).catch((error) => {
               //Attach a placeholder image
             })
         }
-      }).catch(err => {
+      }).catch((err) => {
         dispatch({type: "SEARCH_POSTS_FAIL", error: err});
       });
   };

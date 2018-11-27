@@ -1,10 +1,10 @@
-import React from 'react';
-import { Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import React from "react";
+import { Col, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 const signUp = (props) => {
   return (
     <Col xs="12" md={{size:6, offset: 3}}>
-      <h1 style={{textAlign: 'center'}}>Sign up here!</h1>
+      <h1 style={{textAlign: "center"}}>Sign up here!</h1>
       <Form>
         <FormGroup>
           <Label for="username">Username</Label>
@@ -26,12 +26,12 @@ const signUp = (props) => {
           <Label for="email">Email</Label>
           <Input type="text" name="email" id="email" placeholder="Enter your email" />
         </FormGroup>
-        <FormGroup style={{textAlign: 'center'}}>
+        <FormGroup style={{textAlign: "center"}}>
           <Button color="warning">Submit</Button>
         </FormGroup>
       </Form>
     </Col>
-  )
+  );
 };
 
 export default signUp;

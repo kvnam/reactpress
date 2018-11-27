@@ -18,8 +18,8 @@ const appReducer = combineReducers({
   postsRed: PostReducer
 });
 
-const logger = store => {
-  return next => action => {
+const logger = (store) => {
+  return next => (action) => {
     console.log("[MIDDLEWARE] Action : ");
     console.log(action);
     const res = next(action);
