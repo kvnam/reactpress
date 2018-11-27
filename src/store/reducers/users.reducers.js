@@ -1,78 +1,78 @@
-import * as actionMethods from '../actions/actions';
+import * as actionTypes from "../actions/actions";
 
 const initialState = {
-  userInfo: {
-    username: '',
-    email: '',
-    displayname: ''
-  },
-  token: '',
+  username: "",
+  email: "",
+  displayname: "",
+  token: "",
   error: null,
   isLoading: false,
-  redirectURL: '/'
+  redirectURL: "/"
 };
 
 const userReducer = (state = initialState, action) => {
   let updatedUser = null;
   switch(action.type){
-    case actionMethods.USER_SIGNUP: updatedUser = {
+    case actionTypes.USER_SIGNUP: updatedUser = {
                           ...state,
                           isLoading: true
                         };
                         return updatedUser;
-    case actionMethods.USER_SIGNUP_SUCCESS: updatedUser = {
+    case actionTypes.USER_SIGNUP_SUCCESS: updatedUser = {
                           ...state,
                           isLoading: false,
                           username: action.user.username,
                           email: action.user.email,
                           token: action.token,
                           displayname: action.user.displayname,
-                          redirectURL: '/signin?user=new'
+                          redirectURL: "/signin?user=new"
                         };
                         return updatedUser;
-    case actionMethods.USER_SIGNUP_FAIL: updatedUser = {
+    case actionTypes.USER_SIGNUP_FAIL: updatedUser = {
                           ...state,
                           isLoading: false,
                           error: action.error
                         };
                         return updatedUser;
-    case actionMethods.USER_SIGNIN: updatedUser = {
+    case actionTypes.USER_SIGNIN: updatedUser = {
                           ...state,
                           isLoading: true
                         };
                         return updatedUser;
-    case actionMethods.USER_SIGNIN_SUCCESS: updatedUser = {
+    case actionTypes.USER_SIGNIN_SUCCESS: updatedUser = {
                           ...state,
                           isLoading: false,
-                          userInfo: action.userDets,
+                          username: action.userDets.user_nicename,
+                          email: action.userDets.user_email,
+                          displayname:  action.userDets.user_display_name,
                           token: action.token
                         };
                         return updatedUser;
-    case actionMethods.USER_SIGNIN_FAIL: updatedUser = {
+    case actionTypes.USER_SIGNIN_FAIL: updatedUser = {
                           ...state,
                           isLoading: false,
                           error: action.error
                         };
                         return updatedUser;
-    case actionMethods.VALIDATE_TOKEN_SUCCESS: updatedUser = {
+    case actionTypes.VALIDATE_TOKEN_SUCCESS: 
+                              
+                              updatedUser = {
                                 ...state,
                                 token: action.token,
                                 email: action.email,
                                 redirectURL: action.redirectTo
                               };
                               return updatedUser;
-    case actionMethods.VALIDATE_TOKEN_FAIL: updatedUser = {
+    case actionTypes.VALIDATE_TOKEN_FAIL: updatedUser = {
                                 ...state,
                                 error: action.error
                               };
                               return updatedUser;
-    case actionMethods.USER_SIGNOUT:console.log('IN SIGNOUT REDUCER');
-                                    localStorage.removeItem('token');
-                                    localStorage.removeItem('email');
+    case actionTypes.USER_SIGNOUT:
                                     updatedUser = {
                                       ...state,
-                                      token: null,
-                                      redirectURL: '/'
+                                      token: "",
+                                      redirectURL: "/"
                                     };
                                     return updatedUser;
     default : return state;

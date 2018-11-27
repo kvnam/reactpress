@@ -1,30 +1,29 @@
-import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-import * as actionMethods from '../../store/actions/index.actions';
-import SignUp from '../../components/Auth/SignUp';
-import SignIn from '../../components/Auth/SignIn';
-import SignOut from '../../components/Auth/Signout';
+import * as actionMethods from "../../store/actions/index.actions";
+import SignUp from "../../components/Auth/SignUp";
+import SignIn from "../../components/Auth/SignIn";
+import SignOut from "../../components/Auth/Signout";
 
 class Auth extends Component{
 
   state = {
     user : {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      username: ''
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      username: ""
     },
     isNewUser : false,
     alertText : null
   };
 
   componentDidMount(){
-    console.log('AUTH DID MOUNT');
     let params = new URLSearchParams(this.props.location.search);
-    if(params.get('user')){
+    if(params.get("user")){
       this.setState({isNewUser: true});
     }
   }
@@ -32,7 +31,8 @@ class Auth extends Component{
   onUserSignin = () => {
     //Validate inputs
     if(this.state.user.username === "" || this.state.user.password === ""){
-      console.log('Disallow submit');
+      console.log("Disallow submit");
+      //TODO: ADD ERROR DIALOG
     }else{
       //Submit the form
       let userDets = {

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, Nav } from "reactstrap";
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import * as actionMethods from '../../store/actions/index.actions';
+import * as actionMethods from "../../store/actions/index.actions";
 import NavigationItem from "../../components/NavigationItem/NavigationItem";
-import SubMenu from '../../components/NavigationItem/SubMenu/SubMenu';
+import SubMenu from "../../components/NavigationItem/SubMenu/SubMenu";
 
 import "../../components/NavigationItem/NavigationItem.css";
 
@@ -13,31 +13,26 @@ const navItems = [
   {
     link: "/",
     linkName: "BLOG",
-    isVisible: 'all'
+    isVisible: "all"
   },
   {
     link: "/auth/signin",
     linkName: "LOG IN",
-    isVisible: 'noauth'
+    isVisible: "noauth"
   },
   {
     link: "/auth/signup",
     linkName: "SIGN UP",
-    isVisible: 'noauth'
+    isVisible: "noauth"
   }
 ];
 
 class Navigation extends Component{
 
   componentDidMount(){
-    console.log(this.props);
     let url = this.props.location.pathname;
-    if(!this.props.token){
+    if(!this.props.token && url !== "/auth/signout"){
       this.props.validateToken(url);
-    }else{
-      if(url !== this.props.redirectTo && (this.props.url !== '/auth/signin' || this.props.url !== '/auth/signup')){
-        this.props.history.push(this.props.redirectTo);
-      }
     }
   }
 
@@ -45,7 +40,7 @@ class Navigation extends Component{
     const navList = navItems.map(item => {
       if(this.props.token && item.isVisible !== "noauth"){
         return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />
-      }else if(item.isVisible === 'all'){
+      }else if(!this.props.token){
         return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />
       }
     });

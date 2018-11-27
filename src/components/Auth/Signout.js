@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import * as actionTypes from "../../store/actions/index.actions";
 
 class Signout extends Component{
   componentDidMount(){
     if(this.props.token){
-      console.log("CALLING LOGOUT USER");
-      this.props.logoutUser();
+      //Dispatch User Signout action
+      this.props.logoutUser(this.props.token);
     }
   }
 
   render(){
     let authRedirect = null;
-    if(this.props.token === null){
-      //authRedirect = <Redirect to="/" />;
+    if(!this.props.token || this.props.token === ""){
+      authRedirect = <Redirect to="/" />;
     }
     return(
       <div>
@@ -31,7 +32,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchStateToProps = (dispatch) => {
   return {
-    logoutUser: () => {dispatch({type: "USER_SIGNOUT"})}
+    logoutUser: (token) => {dispatch(actionTypes.userSignout(token))}
   }
 };
 

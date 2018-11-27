@@ -2,9 +2,10 @@ export {
   loadAllPosts,
   loadSinglePost,
   searchAllPosts
-} from './posts.actions';
+} from "./posts.actions";
 
 export {
   userSignin,
-  validateToken
-} from './users.actions';
+  validateToken,
+  userSignout
+} from "./users.actions";

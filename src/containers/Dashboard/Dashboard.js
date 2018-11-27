@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Row, Col } from "reactstrap";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Dashboard extends Component{
 
   render(){
     let authRedirect = null;
-    if(this.props.token === null){
+    if(this.props.token === null || this.props.token === ""){
       authRedirect = <Redirect to="/auth/signin" />
     }
     return(

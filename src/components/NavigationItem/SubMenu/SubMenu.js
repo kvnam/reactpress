@@ -1,18 +1,19 @@
 import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import { Nav, NavItem } from 'reactstrap';
 
 const sidebar = (props) => {
 
   return(
       <Nav>
         <NavItem>
-          <NavLink href="/dashboard">Dashboard</NavLink>
+          <NavLink to="/dashboard">Dashboard</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/dashboard/create">Create Post</NavLink>
+          <NavLink to="/dashboard/create">Create Post</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/auth/signout">Log Out</NavLink>
+          <NavLink to="/auth/signout">Log Out</NavLink>
         </NavItem>
       </Nav>
   );
