@@ -22,6 +22,15 @@ The app has the following objectives
 - Retrieve self-authored posts
 - Delete self-authored posts
 
+##ChangeLog
+
+Date: 27/11/2018
+- Changed to [simple-jwt-authentication by Jonathan](https://github.com/jonathan-dejong/simple-jwt-authentication/wiki/Documentation)
+- Added Login and Log out for existing user
+
+Date: 25/11/2018
+- Added login with [jwt-authentication-plugin by Tmeister](https://github.com/Tmeister/wp-api-jwt-auth)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Find tutorials in the [Blue Krill Blog](http://www.bluekrill.com/blog/)
