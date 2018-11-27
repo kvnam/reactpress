@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Container, Row, Col, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Alert } from 'reactstrap';
+import { Alert } from "reactstrap";
 
 import * as actionMethods from "../../store/actions/index.actions";
 import Post from "../../components/Post/Post";
 
 class Blog extends Component{
   state = {
-    searchTerm: '',
+    searchTerm: "",
     onAlert: false,
     internalError: null
   };
@@ -32,12 +32,12 @@ class Blog extends Component{
   }
 
   onSearchHandler = () => {
-    if(this.state.searchTerm !== ''){
+    if(this.state.searchTerm !== ""){
       this.props.searchAllPosts(this.state.searchTerm);
     }else{
       this.setState((state) => {
-        return {internalError: 'Search Term cannot be empty!', onAlert: true};
-      })
+        return {internalError: "Search Term cannot be empty!", onAlert: true};
+      });
     }
   }
 
@@ -55,7 +55,7 @@ class Blog extends Component{
                 excerpt={post.excerpt.rendered} 
                 medialink={post.media_link} 
                 postId={post.id}
-                onReadMore={this.readMoreHandler}/>
+                onReadMore={this.readMoreHandler}/>;
       });
     }
     
@@ -70,7 +70,7 @@ class Blog extends Component{
         <Row>
           <Col xs="12" md="4"><h1>All Posts</h1></Col>
           <Col xs="12" md="8">
-          <InputGroup style={{float: 'right', width: 'auto'}}>
+          <InputGroup style={{float: "right", width: "auto"}}>
           <input type="text" onChange={this.searchInputChanged} />
             <InputGroupAddon addonType="append">
             <Button onClick={this.onSearchHandler}>Search</Button>
@@ -80,22 +80,22 @@ class Blog extends Component{
         </Row>
         {postsList}
       </Container>
-    )
+    );
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return{
     posts: state.postsRed.posts,
     error: state.postsRed.error
-  }
+  };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     loadAllPosts: (perpage) => {dispatch(actionMethods.loadAllPosts(perpage))},
     searchAllPosts: (term) => {dispatch(actionMethods.searchAllPosts(term))}
-  }
+  };
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Blog));

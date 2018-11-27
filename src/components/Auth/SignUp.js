@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Form, FormGroup, InputGroup, InputGroupAddon, InputGroupText, Label, Input, Button } from "reactstrap";
+import { Col, Form, FormGroup, InputGroup, InputGroupAddon, InputGroupText, Input, Button } from "reactstrap";
 
 const signUp = (props) => {
   return (

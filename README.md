@@ -22,7 +22,7 @@ The app has the following objectives
 - Retrieve self-authored posts
 - Delete self-authored posts
 
-##ChangeLog
+## ChangeLog
 
 Date: 27/11/2018
 - Changed to [simple-jwt-authentication by Jonathan](https://github.com/jonathan-dejong/simple-jwt-authentication/wiki/Documentation)

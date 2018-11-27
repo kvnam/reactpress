@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { register } from "./serviceWorker";
 
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
@@ -41,3 +42,4 @@ const app = (
 );
 
 ReactDOM.render(app, document.getElementById("root"));
+register();

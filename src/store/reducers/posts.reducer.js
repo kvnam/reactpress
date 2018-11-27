@@ -30,7 +30,7 @@ const postsReducer = (state = initialState, action) => {
                                   error: action.error
                                 };
                                 return newState;
-    case 'SEARCH_POSTS_SUCCESS' : newState = {
+    case "SEARCH_POSTS_SUCCESS" : newState = {
                                   ...state,
                                   posts: action.posts
                                 };

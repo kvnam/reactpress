@@ -22,7 +22,7 @@ class Signout extends Component{
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
 const mapDispatchStateToProps = (dispatch) => {
   return {
     logoutUser: (token) => {dispatch(actionTypes.userSignout(token))}
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchStateToProps)(Signout);

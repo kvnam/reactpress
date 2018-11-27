@@ -4,7 +4,7 @@ import ReactHtmlParser from "react-html-parser";
 
 import "./Post.css";
 
-const post = props => {
+const post = (props) => {
 
   let titleHtml = ReactHtmlParser(props.title);
   let excerptHtml = ReactHtmlParser(props.excerpt);

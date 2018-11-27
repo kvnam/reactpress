@@ -15,8 +15,8 @@ export const loadAllPosts = (perpage) => {
         axios.get("/wp/v2/media?include=" + mediaIds.join(","))
           .then(mediaRes => {
             let updatedPosts = null;
-            updatedPosts = postsRes.data.map(post => {
-              mediaRes.data.forEach(media => {
+            updatedPosts = postsRes.data.map((post) => {
+              mediaRes.data.forEach((media) => {
                 if(media.id === post.featured_media){
                   post.media_link = media.guid.rendered;
                 }
@@ -76,7 +76,7 @@ export const searchAllPosts = (term) => {
       .then(postResults => {
         //Retrieve featured images
         let mediaIds = [];
-        postResults.data.forEach(post => {
+        postResults.data.forEach((post) => {
           mediaIds.push(post.featured_media);
         });
         if(mediaIds.length !== 0){

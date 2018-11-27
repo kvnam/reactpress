@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col, Badge } from "reactstrap";
-import ReactHtmlParser from "react-html-parser";
+import reactHtmlParser from "react-html-parser";
 
 import * as actionMethods from "../../store/actions/index.actions";
 
@@ -18,17 +18,17 @@ class singlePost extends Component {
     let content = <h2>Post loading...</h2>;
     let catTags = null;
     if(this.props.post !== null){
-      catTags = this.props.post.categoryTags.map(cats => {
-        return <h3 key={cats.id} className="cat-tags"><Badge color="primary">{cats.name}</Badge></h3>
+      catTags = this.props.post.categoryTags.map((cats) => {
+        return <h3 key={cats.id} className="cat-tags"><Badge color="primary">{cats.name}</Badge></h3>;
       });
       content = (
         <React.Fragment>
-          <Col xs="12" md="12">{ReactHtmlParser(this.props.post.title.rendered)}</Col>
+          <Col xs="12" md="12">{reactHtmlParser(this.props.post.title.rendered)}</Col>
           <Col xs="12" md="12">{catTags}</Col>
           <Col xs="12" md="12"><img className="post-img" alt={this.props.post.title.rendered} src={this.props.post.medialink} /></Col>
-          <Col xs="12" md="12">{ReactHtmlParser(this.props.post.content.rendered)}</Col>
+          <Col xs="12" md="12">{reactHtmlParser(this.props.post.content.rendered)}</Col>
         </React.Fragment>
-      )
+      );
     }
     return (
       <Container>
@@ -38,19 +38,19 @@ class singlePost extends Component {
       </Container>
     );
   }
-};
+}
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     post: state.postsRed.singlePost,
     error: state.postsRed.error
-  }
+  };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onLoadSinglePost: (pid) => {dispatch(actionMethods.loadSinglePost(pid))}
-  }
+  };
 }
 
 
