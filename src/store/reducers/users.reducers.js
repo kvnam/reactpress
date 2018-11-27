@@ -23,7 +23,6 @@ const userReducer = (state = initialState, action) => {
                           isLoading: false,
                           username: action.user.username,
                           email: action.user.email,
-                          token: action.token,
                           displayname: action.user.displayname,
                           redirectURL: "/signin?user=new"
                         };
@@ -72,6 +71,9 @@ const userReducer = (state = initialState, action) => {
                                     updatedUser = {
                                       ...state,
                                       token: "",
+                                      username: "",
+                                      email: "",
+                                      displayname: "",
                                       redirectURL: "/"
                                     };
                                     return updatedUser;

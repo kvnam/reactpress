@@ -3,7 +3,7 @@ import * as actionTypes from "./actions";
 
 export const userSignup = (user) => {
   return dispatch => {
-    axios.post("/wp/v2/json/users")
+    axios.post("/wp/v2/users", user)
     .then(newUser => {
       dispatch({type: "USER_SIGNUP_SUCCESS", user: newUser});
     }).catch(error => {

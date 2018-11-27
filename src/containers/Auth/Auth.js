@@ -11,11 +11,14 @@ class Auth extends Component{
 
   state = {
     user : {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: "",
       password: "",
-      username: ""
+      username: "",
+      locale: "en_US",
+      description: "",
+      name: ""
     },
     isNewUser : false,
     alertText : null
@@ -27,11 +30,49 @@ class Auth extends Component{
       this.setState({isNewUser: true});
     }
   }
+  /*  Validate inputs for the User fields for Signin and Sign Up forms
+   *  1. Check for empty input                      ~
+   *  2. Check for password strength (OWASP regex)  X
+   *  3. Check email validity                       X
+   *  4. Check for blacklisted words                x
+   *  5. Trigger error texts                        x
+   */
+  validateInputs(forForm){
+    //Empty or false inputs
+    if(this.state.user.username === "" || !this.state.user.username){
+      return false;
+    }else if(this.state.user.password === "" || !this.state.user.password){
+      return false;
+    }
+    if(forForm === 'signup'){
+      if(this.state.user.email === "" || !this.state.user.email){
+        return false;
+      }else if(this.state.user.first_name === "" || this.state.user.last_name === ""){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  onUserSignUp = () => {
+    let tempUser = {
+      ...this.state.user
+    };
+    tempUser.username = tempUser.email;
+    tempUser.name = tempUser.first_name + ' ' + tempUser.last_name;
+    this.setState({user: tempUser}, () => {
+      //TODO: Validate inputs
+      let isValid = this.validateInputs('signup');
+      if(isValid){
+        //Assign email to username
+        this.props.onUserSignUpSubmit(this.state.user);  
+      }
+    });
+  }
 
   onUserSignin = () => {
-    //Validate inputs
+    //TODO: Validate inputs
     if(this.state.user.username === "" || this.state.user.password === ""){
-      console.log("Disallow submit");
       //TODO: ADD ERROR DIALOG
     }else{
       //Submit the form
@@ -55,7 +96,7 @@ class Auth extends Component{
           {this.props.token ? <Redirect to="/dashboard" /> : null}
           <Switch>
           <Route path="/auth/signin" render={() => <SignIn uid={this.state.user.username} pwd={this.state.user.password} onUserClick={this.onUserSignin} inputChanged={this.onInputClicked} />} />
-          <Route path="/auth/signup" render={() => <SignUp user={this.state.user} />} />
+          <Route path="/auth/signup" render={() => <SignUp user={this.state.user} inputChanged={this.onInputClicked} onFormSubmit={this.onUserSignUp}/>} />
           <Route path="/auth/signout" render={() => <SignOut />} />
           </Switch>
         </React.Fragment>
@@ -72,7 +113,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUserSigninSubmit: (user) => {dispatch(actionMethods.userSignin(user))}
+    onUserSigninSubmit: (user) => {dispatch(actionMethods.userSignin(user))},
+    onUserSignUpSubmit: (user) => {dispatch(actionMethods.userSignup(user))},
   };
 };
 

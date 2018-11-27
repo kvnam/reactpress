@@ -46,7 +46,7 @@ class Navigation extends Component{
     });
     return(
       <React.Fragment>
-      <Navbar color="dark" dark className="bg-dark">
+      <Navbar color="dark" dark className="bg-dark mb-5">
         <NavbarBrand href="/">REACTPRESS</NavbarBrand>
         <Nav className="justify-content-end">
           {navList}
