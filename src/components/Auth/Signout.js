@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 import * as actionTypes from "../../store/actions/index.actions";
 
 class Signout extends Component{
@@ -14,7 +14,7 @@ class Signout extends Component{
   render(){
     let authRedirect = null;
     if(!this.props.token || this.props.token === ""){
-      authRedirect = <Redirect to="/" />;
+    //  authRedirect = <Redirect to="/" />;
     }
     return(
       <div>

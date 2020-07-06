@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Dashboard extends Component{
@@ -8,7 +8,7 @@ class Dashboard extends Component{
   render(){
     let authRedirect = null;
     if(this.props.token === null || this.props.token === ""){
-      authRedirect = <Redirect to="/auth/signin" />
+     // authRedirect = <Redirect to="/auth/signin" />
     }
     return(
         <Row> 

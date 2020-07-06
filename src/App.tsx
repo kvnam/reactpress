@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
+import  { AnimatedSwitch } from "react-router-transition";
 
 import Navigation from "./containers/Navigation/Navigation";
 import Blog from "./containers/Blog/Blog";
@@ -8,14 +9,13 @@ import Auth from "./containers/Auth/Auth";
 import Dashboard from "./containers/Dashboard/Dashboard";
 import "./App.css";
 
-class App extends Component {
-  render() {
+function App() {
     return (
       <div className="App">
        <div>
          <Navigation />
        </div>
-       <Switch
+       <AnimatedSwitch
         atEnter={{opacity: 0}}
         atLeave={{opacity: 0}}
         atActive={{opacity: 1}}
@@ -24,10 +24,9 @@ class App extends Component {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/auth" component={Auth} />
         <Route path="/" exact component={Blog}/>
-       </Switch>
+       </AnimatedSwitch>
       </div>
     );
-  }
 }
 
 export default App;

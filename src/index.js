@@ -1,26 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { register } from "./serviceWorker";
 
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-
+import { BrowserRouter } from "react-router-dom";
 import UserReducer from "./store/reducers/users.reducers";
 import PostReducer from "./store/reducers/posts.reducer";
 import "./index.css";
-import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import App from "./App.tsx";
 
 const appReducer = combineReducers({
   usersRed: UserReducer,
-  postsRed: PostReducer
+  postsRed: PostReducer,
 });
 
 const logger = (store) => {
-  return next => {
-    return action => {
+  return (next) => {
+    return (action) => {
       console.log("Middleware dispatching ");
       console.log(action);
       const result = next(action);
@@ -42,4 +40,3 @@ const app = (
 );
 
 ReactDOM.render(app, document.getElementById("root"));
-register();

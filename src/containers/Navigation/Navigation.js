@@ -13,61 +13,67 @@ const navItems = [
   {
     link: "/",
     linkName: "BLOG",
-    isVisible: "all"
+    isVisible: "all",
   },
   {
     link: "/auth/signin",
     linkName: "LOG IN",
-    isVisible: "noauth"
+    isVisible: "noauth",
   },
   {
     link: "/auth/signup",
     linkName: "SIGN UP",
-    isVisible: "noauth"
-  }
+    isVisible: "noauth",
+  },
 ];
 
-class Navigation extends Component{
-
-  componentDidMount(){
-    let url = this.props.location.pathname;
-    if(!this.props.token && url !== "/auth/signout"){
+class Navigation extends Component {
+  componentDidMount() {
+    const url = this.props.location.pathname;
+    if (!this.props.token && url !== "/auth/signout") {
       this.props.validateToken(url);
     }
   }
 
-  render(){
-    const navList = navItems.map(item => {
-      if(this.props.token && item.isVisible !== "noauth"){
-        return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />
-      }else if(!this.props.token){
-        return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />
+  render() {
+    const navList = navItems.map((item) => {
+      if (this.props.token && item.isVisible !== "noauth") {
+        return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
       }
-    });
-    return(
+      if (!this.props.token) {
+        return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
+      }
+      return null;
+    })
+    .filter(v => !!v);
+    return (
       <React.Fragment>
-      <Navbar color="dark" dark className="bg-dark mb-5">
-        <NavbarBrand href="/">REACTPRESS</NavbarBrand>
-        <Nav className="justify-content-end">
-          {navList}
-        </Nav>
-      </Navbar>
-      {this.props.token ? <Navbar color="light" light className="submenu"><SubMenu /></Navbar> : null}
+        <Navbar color="dark" dark className="bg-dark mb-5">
+          <NavbarBrand href="/">REACTPRESS</NavbarBrand>
+          <Nav className="justify-content-end">{navList}</Nav>
+        </Navbar>
+        {this.props.token ? (
+          <Navbar color="light" light className="submenu">
+            <SubMenu />
+          </Navbar>
+        ) : null}
       </React.Fragment>
     );
-  };
-};
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
     token: state.usersRed.token,
-    redirectTo: state.usersRed.redirectURL
+    redirectTo: state.usersRed.redirectURL,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    validateToken: (url) => {dispatch(actionMethods.validateToken(url))}
+    validateToken: (url) => {
+      dispatch(actionMethods.validateToken(url));
+    },
   };
 };
 
