@@ -24,11 +24,9 @@ The app has the following objectives
 
 ## ChangeLog
 
-Date: 07/09/2020
+Date: 09/2020
 
-- Restarted project
-- Moved to Typescript
-- Added tests
+- Working on moving to Typescript, adding tests, upgrading UI to allow more customization
 
 Date: 27/11/2018
 

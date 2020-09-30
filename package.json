@@ -22,7 +22,8 @@
     "reactstrap": "^8.4.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "snyk": "^1.360.0"
   },
   "scripts": {
     "start": "craco start",
@@ -73,5 +74,10 @@
     "singleQuote": false,
     "bracketSpacing": true,
     "trailingComma": "all"
+<<<<<<< HEAD
   }
+=======
+  },
+  "snyk": true
+>>>>>>> master
 }
