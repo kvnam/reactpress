@@ -4,16 +4,16 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^5.6.4",
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^26.0.4",
     "@types/node": "^14.0.14",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
+    "antd": "^4.4.1",
     "axios": "^0.18.0",
     "bootstrap": "^4.5.0",
-    "dotenv": "^8.2.0",
     "react": "^16.13.0",
-    "react-dom": "^16.13.2",
+    "react-dom": "^16.13.1",
     "react-html-parser": "^2.0.2",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.2.0",
@@ -29,9 +29,8 @@
     "start": "craco start",
     "build": "react-scripts build",
     "test": "react-scripts test --colors --verbose ",
-    "eject": "react-scripts eject",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test-jest": "jest",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,11 +41,22 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "jest": {
+    "transform": {
+      "\\.(ts|tsx)$": "./test-preprocessor.js"
+    },
+    "snapshotSerializers": [
+      "enzyme-to-json"
+    ]
+  },
   "devDependencies": {
+    "@types/enzyme": "^3.10.5",
+    "@types/react-redux": "^7.1.9",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.5.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.0",
+    "enzyme-to-json": "^3.5.0",
     "eslint-config-airbnb-typescript": "^8.0.2",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.20.1",
@@ -64,6 +74,5 @@
     "singleQuote": false,
     "bracketSpacing": true,
     "trailingComma": "all"
-  },
-  "snyk": true
+  }
 }

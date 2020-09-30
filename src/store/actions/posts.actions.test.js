@@ -9,26 +9,14 @@ const mockStore = configureMockStore(middlewares);
 const store = mockStore({ posts: [] });
 
 describe("Post Actions", () => {
-
-  beforeEach( () => {
+  beforeEach(() => {
     store.clearActions();
-  })
-
-  describe("Get posts", () => {
-
-    test("Dispatches action and payload", () => {
-      // console.log("Inside testing post actions");
-      // const expectedActions = [
-      //   {
-      //     type: "GET_ALL_POSTS", 
-      //     posts: []
-      //   }
-      // ];
-
-      // store.dispatch(postActions.loadAllPosts(1));
-      // expect(store.getActions()).toEqual(expectedActions);
-    })
-
   });
 
+  describe("Get posts", () => {
+    test("Dispatches action and payload", () => {
+      // TODO: Add actual tests
+      expect(1).toEqual(1);
+    });
+  });
 });
