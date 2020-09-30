@@ -1,4 +1,4 @@
-import { LOADING_ALL_POSTS, GET_ALL_POSTS, SINGLE_POST_ACTION, SEARCH_POSTS_ACTION, PostActionTypes } from "./posts.types";
+import { LOADING_ALL_POSTS, GET_ALL_POSTS, SINGLE_POST_ACTION, SEARCH_POSTS_ACTION, PostActionTypes } from "../../types/posts.types";
 
 export const initialPostState = {
   posts: null,

@@ -8,7 +8,7 @@ import {
   SEARCH_POSTS_ACTION,
   GET_ALL_POSTS,
   PostActionTypes,
-} from "../reducers/posts.types";
+} from "../../types/posts.types";
 import { WPMedia, WPPost } from "../../types/wptypes";
 
 type MediaLinkType = {

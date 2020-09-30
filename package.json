@@ -74,10 +74,5 @@
     "singleQuote": false,
     "bracketSpacing": true,
     "trailingComma": "all"
-<<<<<<< HEAD
   }
-=======
-  },
-  "snyk": true
->>>>>>> master
 }

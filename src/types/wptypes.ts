@@ -133,3 +133,9 @@ export type WPMedia = {
     };
   };
 };
+
+export type WPUserType = {
+  user_nicename?: string;
+  user_email?: string;
+  user_display_name?: string;
+}
