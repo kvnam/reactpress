@@ -23,14 +23,16 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "typescript": "^3.9.6",
-    "snyk": "^1.360.0"
+    "snyk": "^1.606.0"
   },
   "scripts": {
     "start": "craco start",
     "build": "react-scripts build",
     "test": "react-scripts test --colors --verbose ",
     "test-jest": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -74,5 +76,6 @@
     "singleQuote": false,
     "bracketSpacing": true,
     "trailingComma": "all"
-  }
+  },
+  "snyk": true
 }
