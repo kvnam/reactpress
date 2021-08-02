@@ -1,6 +1,6 @@
 # ReactPress
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6afbe2dd37ed4c65853f718d56b72b46)](https://app.codacy.com/app/kvnam/reactpress?utm_source=github.com&utm_medium=referral&utm_content=kvnam/reactpress&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/926e0227b23a428d86a2b22afce124cf)](https://www.codacy.com/gh/kvnam/reactpress/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kvnam/reactpress&amp;utm_campaign=Badge_Grade)
 
 Wordpress API delivered through a React application.
 

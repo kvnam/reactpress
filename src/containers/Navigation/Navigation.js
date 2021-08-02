@@ -8,7 +8,10 @@ import NavigationItem from "../../components/NavigationItem/NavigationItem";
 import SubMenu from "../../components/NavigationItem/SubMenu/SubMenu";
 
 import "../../components/NavigationItem/NavigationItem.css";
-
+/**
+ *  Navigation component
+ *  Handles retrieval of Pages from Wordpress DB and builds each route
+ */
 const navItems = [
   {
     link: "/",
@@ -36,16 +39,17 @@ class Navigation extends Component {
   }
 
   render() {
-    const navList = navItems.map((item) => {
-      if (this.props.token && item.isVisible !== "noauth") {
-        return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
-      }
-      if (!this.props.token) {
-        return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
-      }
-      return null;
-    })
-    .filter(v => !!v);
+    const navList = navItems
+      .map((item) => {
+        if (this.props.token && item.isVisible !== "noauth") {
+          return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
+        }
+        if (!this.props.token) {
+          return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
+        }
+        return null;
+      })
+      .filter((v) => !!v);
     return (
       <React.Fragment>
         <Navbar color="dark" dark className="bg-dark mb-5">

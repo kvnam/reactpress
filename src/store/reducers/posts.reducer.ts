@@ -7,10 +7,11 @@ export const initialPostState = {
   totalPages: 0,
   totalPosts: 0,
   perPage: 5,
+  postsLoading: false,
 };
 
 const postsReducer = (state = initialPostState, action: PostActionTypes) => {
-  let newState = null;
+  let newState = state;
 
   switch (action.type) {
     case LOADING_ALL_POSTS:
@@ -18,15 +19,15 @@ const postsReducer = (state = initialPostState, action: PostActionTypes) => {
         ...state,
         postsLoading: action.postsLoading,
       };
-      return newState;
+      break;
     case GET_ALL_POSTS:
       newState = {
         ...state,
-        posts: action.posts,
+        posts : action.posts || null,
         postsLoading: false,
         error: action.error,
       };
-      return newState;
+      break;
     case SINGLE_POST_ACTION:
       newState = {
         ...state,
@@ -34,7 +35,7 @@ const postsReducer = (state = initialPostState, action: PostActionTypes) => {
         postsLoading: action.postsLoading,
         error: action.error,
       };
-      return newState;
+      break;
     case SEARCH_POSTS_ACTION:
       newState = {
         ...state,
@@ -42,10 +43,11 @@ const postsReducer = (state = initialPostState, action: PostActionTypes) => {
         postsLoading: action.postsLoading,
         error: action.error,
       };
-      return newState;
+      break;
     default:
-      return state;
+      break;
   }
+  return newState;
 };
 
 export default postsReducer;

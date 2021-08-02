@@ -29,6 +29,7 @@ interface DispatchProps {
 }
 
 type PostsList = JSX.Element[] | [];
+
 const Blog: React.FC<BlogProps> = (props: BlogProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [onAlert, setOnAlert] = useState(false);

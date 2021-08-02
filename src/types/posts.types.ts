@@ -12,21 +12,21 @@ interface LoadingPostsAction {
 
 interface GetAllPostsAction {
   type: typeof GET_ALL_POSTS;
-  posts?: [WPPost];
+  posts?: [WPPost] | any | null;
   postsLoading: boolean;
   error?: Error | any | null;
 }
 
 interface GetSinglePostAction {
   type: typeof SINGLE_POST_ACTION;
-  post?: WPPost;
+  post?: WPPost | any | null;
   error?: Error | any | null;
   postsLoading: boolean;
 }
 
 interface SearchPostsAction {
   type: typeof SEARCH_POSTS_ACTION;
-  posts?: [WPPost];
+  posts?: [WPPost] | any | null;
   postsLoading: boolean;
   error?: Error | any | null;
 }

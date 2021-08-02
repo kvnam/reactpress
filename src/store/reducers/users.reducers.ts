@@ -15,10 +15,11 @@ const initialState = {
   error: null,
   isLoading: false,
   redirectURL: "/",
+  userLoading: false
 };
 
 const userReducer = (state = initialState, action: UserActionTypes) => {
-  let updatedUser = null;
+  let updatedUser = state;
 
   switch (action.type) {
     case USER_LOADING_ACTION: {
@@ -26,43 +27,43 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
         ...state,
         isLoading: action.userLoading,
       };
-      return updatedUser;
+      break;
     }
     case USER_SIGNUP_ACTION: {
       const { user = {} } = action;
       updatedUser = {
         ...state,
         userLoading: action.userLoading,
-        username: user.username,
-        email: user.email,
-        displayname: user.displayname,
+        username: user.username || '',
+        email: user.email || '',
+        displayname: user.displayname || '',
         redirectURL: "/signin?user=new",
         error: action.error,
       };
-      return updatedUser;
+      break;
     }
     case USER_SIGNIN_ACTION: {
       const { user = {} } = action;
       updatedUser = {
         ...state,
         userLoading: action.userLoading,
-        username: user.username,
-        email: user.email,
-        displayname: user.displayname,
-        token: action.token,
+        username: user.username || '',
+        email: user.email || '',
+        displayname: user.displayname || '', 
+        token: action.token || '',
         error: action.error,
       };
-      return updatedUser;
+      break;
     }
     case VALIDATE_TOKEN_ACTION: {
       updatedUser = {
         ...state,
-        token: action.token,
-        email: action.email,
-        redirectURL: action.redirectTo,
+        token: action.token || '',
+        email: action.email || '',
+        redirectURL: action.redirectTo || '',
         error: action.error,
       };
-      return updatedUser;
+      break;
     }
     case USER_SIGNOUT_ACTION: {
       updatedUser = {
@@ -76,8 +77,9 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
       return updatedUser;
     }
     default:
-      return state;
+      break;
   }
+  return updatedUser;
 };
 
 export default userReducer;
