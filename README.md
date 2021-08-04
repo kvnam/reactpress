@@ -1,6 +1,6 @@
 # ReactPress
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6afbe2dd37ed4c65853f718d56b72b46)](https://app.codacy.com/app/kvnam/reactpress?utm_source=github.com&utm_medium=referral&utm_content=kvnam/reactpress&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/926e0227b23a428d86a2b22afce124cf)](https://www.codacy.com/gh/kvnam/reactpress/dashboard?utm_source=github.com&utm_medium=referral&utm_content=kvnam/reactpress&utm_campaign=Badge_Grade)
 
 Wordpress API delivered through a React application.
 
@@ -14,6 +14,7 @@ The app has the following objectives
   - Categories
   - Tags
   - Date
+- Display pages from Wordpress
 
 **Registered Users**
 
@@ -23,6 +24,12 @@ The app has the following objectives
 - Delete self-authored posts
 
 ## ChangeLog
+
+Date: 04/08/2021
+
+- Project under active development, please pull code and run at your own risk.
+- Started move to Redux hooks
+- Added Feature to pull pages from Wordpress API and display in ReactPress (pending)
 
 Date: 09/2020
 
