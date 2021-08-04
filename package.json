@@ -22,9 +22,9 @@
     "reactstrap": "^8.4.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "snyk": "^1.606.0",
     "styled-components": "^5.3.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "@snyk/protect": "latest"
   },
   "scripts": {
     "start": "craco start",
@@ -32,7 +32,7 @@
     "test": "react-scripts test --colors --verbose ",
     "test-jest": "jest",
     "eject": "react-scripts eject",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepublish": "npm run snyk-protect"
   },
   "eslintConfig": {
