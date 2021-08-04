@@ -7,9 +7,13 @@ import Blog from "./containers/Blog/Blog";
 import SinglePost from "./components/Post/SinglePost";
 import Auth from "./containers/Auth/Auth";
 import Dashboard from "./containers/Dashboard/Dashboard";
+import WPPage from './components/WPPage';
+import useWPPages from "./hooks/useWPPages";
+import { RPPagesHookType } from './types/pages.types';
 import "./App.css";
 
 function App() {
+  // TODO: Add bootstrap code to set up paths based on the WP pages
   return (
     <div className="App">
       <div>

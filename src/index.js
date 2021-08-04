@@ -8,12 +8,14 @@ import thunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
 import UserReducer from "./store/reducers/users.reducers";
 import PostReducer from "./store/reducers/posts.reducer";
+import PagesReducer from "./store/reducers/pages.reducer";
 import "./index.css";
 import App from "./App.tsx";
 
 const appReducer = combineReducers({
   usersRed: UserReducer,
   postsRed: PostReducer,
+  pagesRed: PagesReducer,
 });
 
 const logger = (store) => {
