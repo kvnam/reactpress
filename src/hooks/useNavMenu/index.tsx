@@ -2,30 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import useWPPages from "../useWPPages";
 import { AllPagesType } from '../../types/pages.types';
+import { baseNavItems } from '../../commons/constants';
 
 type NavItemType = {
   link: string;
   linkName: string;
   isVisible: string;
 }
-
-const baseNavItems: NavItemType[] = [
-  {
-    link: "/",
-    linkName: "BLOG",
-    isVisible: "all",
-  },
-  {
-    link: "/auth/signin",
-    linkName: "LOG IN",
-    isVisible: "noauth",
-  },
-  {
-    link: "/auth/signup",
-    linkName: "SIGN UP",
-    isVisible: "noauth",
-  },
-];
 
 const useNavMenu = () => {
   const wpPages: AllPagesType = useWPPages();
