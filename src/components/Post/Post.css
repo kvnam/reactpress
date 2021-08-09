@@ -1,15 +1,15 @@
-.excerpt-img{
+.excerpt-img {
   width: 100%;
 }
 
-.post-img{
+.post-img {
   width: 100%;
   margin: 1rem 0;
 }
 
-.cat-tags{
+.cat-tags {
   display: inline;
 }
-.cat-tags:not(:first-child){
-  margin-left:1rem;
+.cat-tags:not(:first-child) {
+  margin-left: 1rem;
 }

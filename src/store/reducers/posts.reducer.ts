@@ -1,4 +1,10 @@
-import { LOADING_ALL_POSTS, GET_ALL_POSTS, SINGLE_POST_ACTION, SEARCH_POSTS_ACTION, PostActionTypes } from "../../types/posts.types";
+import {
+  LOADING_ALL_POSTS,
+  GET_ALL_POSTS,
+  SINGLE_POST_ACTION,
+  SEARCH_POSTS_ACTION,
+  PostActionTypes,
+} from "../../types/posts.types";
 
 export const initialPostState = {
   posts: null,
@@ -23,7 +29,7 @@ const postsReducer = (state = initialPostState, action: PostActionTypes) => {
     case GET_ALL_POSTS:
       newState = {
         ...state,
-        posts : action.posts || null,
+        posts: action.posts || null,
         postsLoading: false,
         error: action.error,
       };

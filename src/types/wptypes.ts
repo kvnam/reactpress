@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 export type WPPost = {
   id: number;
   date: Date;
@@ -138,7 +140,7 @@ export type WPUserType = {
   user_nicename?: string;
   user_email?: string;
   user_display_name?: string;
-}
+};
 
 export type WPPage = {
   id: number;
@@ -171,7 +173,7 @@ export type WPPage = {
   comment_status: string;
   ping_status: string;
   template: string;
-  meta: Array<string>
+  meta: Array<string>;
   _links: {
     self: [object];
     collection: [object];
@@ -182,5 +184,5 @@ export type WPPage = {
     "wp:featuredmedia": [object];
     "wp:attachment": [object];
     curies: [object];
-  }
-}
+  };
+};

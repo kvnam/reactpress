@@ -15,7 +15,7 @@ const initialState = {
   error: null,
   isLoading: false,
   redirectURL: "/",
-  userLoading: false
+  userLoading: false,
 };
 
 const userReducer = (state = initialState, action: UserActionTypes) => {
@@ -34,9 +34,9 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
       updatedUser = {
         ...state,
         userLoading: action.userLoading,
-        username: user.username || '',
-        email: user.email || '',
-        displayname: user.displayname || '',
+        username: user.username || "",
+        email: user.email || "",
+        displayname: user.displayname || "",
         redirectURL: "/signin?user=new",
         error: action.error,
       };
@@ -47,10 +47,10 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
       updatedUser = {
         ...state,
         userLoading: action.userLoading,
-        username: user.username || '',
-        email: user.email || '',
-        displayname: user.displayname || '', 
-        token: action.token || '',
+        username: user.username || "",
+        email: user.email || "",
+        displayname: user.displayname || "",
+        token: action.token || "",
         error: action.error,
       };
       break;
@@ -58,9 +58,9 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
     case VALIDATE_TOKEN_ACTION: {
       updatedUser = {
         ...state,
-        token: action.token || '',
-        email: action.email || '',
-        redirectURL: action.redirectTo || '',
+        token: action.token || "",
+        email: action.email || "",
+        redirectURL: action.redirectTo || "",
         error: action.error,
       };
       break;
