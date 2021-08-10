@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from "react";
 
 import useWPPages from "../useWPPages";
-import { AllPagesType } from '../../types/pages.types';
-import { baseNavItems } from '../../commons/constants';
-
-type NavItemType = {
-  link: string;
-  linkName: string;
-  isVisible: string;
-}
+import { AllPagesType, NavItemType } from "../../types/pages.types";
+import { WPPage } from "../../types/wptypes";
+import { baseNavItems } from "../../commons/constants";
 
 const useNavMenu = () => {
   const wpPages: AllPagesType = useWPPages();
   const [navItems, setNavItems] = useState([...baseNavItems]);
-  
+
   useEffect(() => {
-    if (!wpPages || (navItems.length === baseNavItems.length + Object.keys(wpPages?.pages || {}).length)) {
+    if (!wpPages || navItems.length === baseNavItems.length + Object.keys(wpPages?.pages || {}).length) {
       return;
     }
     const { pages = {} } = wpPages;
     const updatedNavItems: Array<NavItemType> = [...navItems];
-    const slugsInNavItems: Array<string> = updatedNavItems.map(item => item.link);
-    
-    for(const pageSlug in pages){
-      if(!slugsInNavItems.includes(`/${pageSlug}`)){
+    const slugsInNavItems: Array<string> = updatedNavItems.map((item) => item.link);
+    pages.forEach((page: WPPage) => {
+      if (!slugsInNavItems.includes(`/${page.slug}`)) {
         updatedNavItems.push({
-          link: `/${pageSlug}`,
-          linkName: pages[pageSlug].title.rendered,
+          link: `/${page.slug}`,
+          linkName: page.title.rendered,
           isVisible: "noauth",
         });
-        slugsInNavItems.push(`/${pageSlug}`);
+        slugsInNavItems.push(`/${page.slug}`);
       }
-    }
+    });
     setNavItems(updatedNavItems);
   }, [wpPages]);
 

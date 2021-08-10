@@ -1,12 +1,12 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import DOMPurify from "dompurify";
 import { AnimatedSwitch } from "react-router-transition";
+import { Route } from "react-router-dom";
 
 import Navigation from "./containers/Navigation/Navigation";
 import Blog from "./containers/Blog/Blog";
 import SinglePost from "./components/Post/SinglePost";
-import Auth from "./containers/Auth/Auth";
-import { Route } from "react-router-dom";
+// import Auth from "./containers/Auth/Auth";
 
 import useWPPages from "./hooks/useWPPages";
 import WPPage from "./components/WPPage";
@@ -18,10 +18,10 @@ import "./App.css";
 const getStaticComponent = (linkSlug: string): ReactElement<any, any> => {
   let finalComp = <Blog />;
   switch (linkSlug) {
-    case "/auth/signup":
-    case "/auth/signin":
-      finalComp = <Auth />;
-      break;
+    // case "/auth/signup": // TODO: Add auth
+    // case "/auth/signin":
+    //   finalComp = <Auth />;
+    //   break;
     case "/post":
       finalComp = <SinglePost />;
       break;

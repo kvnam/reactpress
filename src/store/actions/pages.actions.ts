@@ -17,3 +17,7 @@ export const getAllPages = (): ThunkAction<Promise<void>, {}, {}, PAGEACTIONTYPE
     });
   };
 };
+
+export const getPage = () => {
+  return { type: "GET_PAGE", page: {}, pageLoading: false };
+};

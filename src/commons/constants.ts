@@ -1,4 +1,6 @@
-export const baseNavItems = [
+import { NavItemType } from "../types/pages.types";
+
+export const baseNavItems: NavItemType[] = [
   {
     link: "/",
     linkName: "BLOG",
@@ -16,3 +18,5 @@ export const baseNavItems = [
     isVisible: "noauth",
   },
 ];
+
+export const APP_NAME = "ReatPress";

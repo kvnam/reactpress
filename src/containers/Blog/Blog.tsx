@@ -9,18 +9,12 @@ import { WPPost } from "../../types/wptypes";
 import * as actionMethods from "../../store/actions/index.actions";
 import Post from "../../components/Post/Post";
 
-type BlogState = {
-  searchTerm: string;
-  onAlert: boolean;
-  internalError: string | null;
-};
 type BlogProps = {
   loadAllPosts: Function;
   searchAllPosts: Function;
   posts: [WPPost];
   postsLoading: boolean;
   error: Error | any;
-  children?: ReactNode;
 };
 
 interface DispatchProps {
@@ -38,7 +32,7 @@ const Blog: React.FC<BlogProps> = (props: BlogProps) => {
 
   const history = useHistory();
 
-  const { postsLoading } = props;
+  const { postsLoading, posts, loadAllPosts, searchAllPosts, error } = props;
 
   const resetError = () => {
     setInternalError("");
@@ -58,7 +52,7 @@ const Blog: React.FC<BlogProps> = (props: BlogProps) => {
 
   const onSearchHandler = () => {
     if (searchTerm !== "") {
-      props.searchAllPosts(searchTerm);
+      searchAllPosts(searchTerm);
     } else {
       setInternalError("Search Term cannot be empty!");
       setOnAlert(true);
@@ -71,12 +65,12 @@ const Blog: React.FC<BlogProps> = (props: BlogProps) => {
   };
 
   useEffect(() => {
-    props.loadAllPosts(5);
+    loadAllPosts(5);
   }, []);
 
   useEffect(() => {
-    if (!props.postsLoading && props.posts?.length) {
-      const updatedPosts = props.posts.map((post: WPPost) => {
+    if (!postsLoading && posts?.length) {
+      const updatedPosts = posts.map((post: WPPost) => {
         return (
           <Post
             key={post.id}
@@ -90,13 +84,13 @@ const Blog: React.FC<BlogProps> = (props: BlogProps) => {
       });
       setPostsList(updatedPosts);
     }
-  }, [props.posts, props.postsLoading]);
+  }, [posts, postsLoading]);
 
   return (
     <Container>
-      {props.error ? (
+      {error ? (
         <Alert color="danger" isOpen={onAlert} toggle={toggleAlertShow}>
-          {props.error}
+          {error}
         </Alert>
       ) : null}
       {internalError ? (

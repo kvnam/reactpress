@@ -55,6 +55,11 @@ export type WPPost = {
   media_link: "string";
 };
 
+export type WPCategory = {
+  id: number;
+  name: string;
+};
+
 type MediaSizesType = {
   file: string;
   width: number;

@@ -17,9 +17,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
+  "exclude": [
+    "src/**/*.js"
+  ],
   "include": [
     "src",
     "setupTest.js"

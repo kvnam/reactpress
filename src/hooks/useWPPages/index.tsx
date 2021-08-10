@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRPDispatch, useRPSelector } from "../../store/store";
 
 import { WPPage } from "../../types/wptypes";
 import { AllPagesType } from "../../types/pages.types";
@@ -10,10 +10,10 @@ type RPPage = {
 };
 
 const useWPPages = () => {
-  const pagesState: AllPagesType = useSelector((state: any) => state.pagesRed);
+  const pagesState: AllPagesType = useRPSelector((state: any) => state.pagesRed);
   const [pages, setPages] = useState({});
 
-  const dispatch = useDispatch();
+  const dispatch = useRPDispatch();
 
   useEffect(() => {
     dispatch(actionMethods.getAllPages());
@@ -25,9 +25,10 @@ const useWPPages = () => {
     }
     const { pages: pagesData = [] } = pagesState;
     const updatedPages: RPPage = {};
-    for (const page of pagesData) {
+
+    pagesData.forEach((page: WPPage) => {
       updatedPages[page.slug] = { ...page };
-    }
+    });
     setPages(updatedPages);
   }, [pagesState]);
 

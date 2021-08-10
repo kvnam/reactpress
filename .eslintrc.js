@@ -1,12 +1,5 @@
 module.exports = {
-  extends: [
-    "eslint:recommended",
-    "airbnb-typescript/base",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["airbnb-typescript", "plugin:@typescript-eslint/recommended", "prettier", "plugin:prettier/recommended"],
   env: {
     browser: true,
     node: true,
@@ -34,14 +27,41 @@ module.exports = {
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-use-before-define": "off",
     camelcase: "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
+    ],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        types: {
+          String: false,
+          Boolean: false,
+          Number: false,
+          Symbol: false,
+          "{}": false,
+          Object: false,
+          object: false,
+          Function: false,
+        },
+        extendDefaults: true,
+      },
+    ],
   },
   overrides: [
     {
       files: ["*.ts", "*.tsx"],
       parserOptions: {
-        project: ["./tsconfig.json"], // Specify it only for TypeScript files
+        project: ["./tsconfig.json"],
       },
     },
   ],
   parser: "@typescript-eslint/parser",
+  ignorePatterns: [".eslintrc.js"],
 };
