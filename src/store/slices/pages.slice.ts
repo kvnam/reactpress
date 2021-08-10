@@ -1,7 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import type { RootState } from "../../index";
-import { PAGEACTIONTYPES, GET_ALL_PAGES } from "../../types/pages.types";
 
 const initialState = {
   pages: null,
@@ -9,21 +8,18 @@ const initialState = {
 };
 
 export const pagesSlice = createSlice({
-  name: "pages",
+  name: "pagesRed",
   initialState,
   reducers: {
-    [GET_ALL_PAGES]: (state, action: PAGEACTIONTYPES) => {
-      return {
-        ...state,
-        pages: action.pages,
-        pagesLoading: action.pagesLoading,
-      };
+    GET_ALL_PAGES: (state, action) => {
+      state.pages = action.payload.pages;
+      state.pagesLoading = !!action.payload.pagesLoading;
     },
   },
 });
 
 export const { GET_ALL_PAGES } = pagesSlice.actions;
 
-export const getAllPages = (state: RootState) => state.pagesRed;
+export const getAllPagesState = (state: RootState) => state.pagesRed;
 
 export default pagesSlice.reducer;

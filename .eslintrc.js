@@ -53,6 +53,13 @@ module.exports = {
         extendDefaults: true,
       },
     ],
+    "no-param-reassign": [
+      "error",
+      {
+        props: true,
+        ignorePropertyModificationsFor: ["state"],
+      },
+    ],
   },
   overrides: [
     {
