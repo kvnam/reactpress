@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import UserReducer from "./store/reducers/users.reducers";
 import PostReducer from "./store/reducers/posts.reducer";
-import PagesReducer from "./store/reducers/pages.reducer";
+import PagesReducer from "./store/slices/pages.slice";
 import "./index.css";
 import App from "./App";
 

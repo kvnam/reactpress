@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useRPDispatch, useRPSelector } from "../../store/store";
+import { useRPDispatch, useRPSelector } from "@store/store";
 
-import { WPPage } from "../../types/wptypes";
-import { AllPagesType } from "../../types/pages.types";
-import * as actionMethods from "../../store/actions/index.actions";
+import { WPPage } from "@rptypes/wptypes";
+import { AllPagesType } from "@rptypes/pages.types";
+import { getAllPagesAction } from "@store/actions/pages.actions";
 
 type RPPage = {
   [key: string]: WPPage;
@@ -16,7 +16,7 @@ const useWPPages = () => {
   const dispatch = useRPDispatch();
 
   useEffect(() => {
-    dispatch(actionMethods.getAllPages());
+    dispatch(getAllPagesAction());
   }, []);
 
   useEffect(() => {

@@ -81,7 +81,7 @@
   },
   "prettier": {
     "semi": true,
-    "printWidth": 125,
+    "printWidth": 120,
     "singleQuote": false,
     "bracketSpacing": true,
     "trailingComma": "all"
