@@ -11,30 +11,33 @@ export type User = {
   displayname?: string;
 };
 
-export interface LoadingUsersAction {
+export type LoadingUsersAction = {
   type: typeof USER_LOADING_ACTION;
   userLoading: boolean;
-}
+};
 
-export interface UserSignUpAction {
+export type UserSignUpAction = {
   userLoading: boolean;
   user?: User;
   redirectURL?: string;
   error?: Error | any | null;
-}
+};
 
-export interface UserSignInAction {
-  type: typeof USER_SIGNIN_ACTION;
+export type UserSignInAction = {
   userLoading: boolean;
   user?: User;
   token?: string;
   error?: Error | any | null;
-}
+};
 
-export interface ValidateUserAction {
-  type: typeof VALIDATE_TOKEN_ACTION;
+export type ValidateUserAction = {
   token?: string;
   email?: string;
   redirectTo?: string;
   error?: Error | any | null;
-}
+};
+
+export type UserSignoutAction = {
+  status: boolean;
+  error?: Error | any | null;
+};

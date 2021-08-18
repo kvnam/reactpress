@@ -40,9 +40,9 @@ export const userSignout = createAsyncThunk("users/userSignout", async (token: s
     // Clear local storage
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-    return { userLoading: false };
+    return { status: true };
   }
-  return rejectWithValue({ userLoading: false, error: "Error signing user out" });
+  return rejectWithValue({ status: true, error: "Error signing user out" });
 });
 
 export const validateToken = createAsyncThunk("users/validateToken", async (url: string, { rejectWithValue }) => {
