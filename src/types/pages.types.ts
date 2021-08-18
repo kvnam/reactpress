@@ -24,9 +24,8 @@ export type RPPagesHookType = {
   pages: RPPage;
 };
 
-export interface GETALLPAGESACTION {
-  type: typeof GET_ALL_PAGES;
+export type GETALLPAGESACTION = {
   pagesLoading?: boolean;
   pages?: WPPage[] | any | null;
   error?: Error | any | null;
-}
+};

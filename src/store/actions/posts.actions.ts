@@ -1,135 +1,95 @@
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import axiosOrig, { AxiosResponse } from "axios";
-import axios from "../../axios-wp";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axiosOrig from "axios";
+import axios from "@/axios-wp";
 
-import {
-  LOADING_ALL_POSTS,
-  SINGLE_POST_ACTION,
-  SEARCH_POSTS_ACTION,
-  GET_ALL_POSTS,
-  PostActionTypes,
-} from "../../types/posts.types";
-import { WPMedia, WPPost } from "../../types/wptypes";
+import { SINGLE_POST_ACTION, SEARCH_POSTS_ACTION, GET_ALL_POSTS } from "@rptypes/posts.types";
+import { WPMedia, WPPost } from "@rptypes/wptypes";
 
 type MediaLinkType = {
   media_link?: string;
 };
 
-export const loadAllPosts = (perpage: number): ThunkAction<Promise<void>, {}, {}, PostActionTypes> => {
-  //Load all posts available on WordPress site
-  return (dispatch: ThunkDispatch<{}, {}, PostActionTypes>): Promise<void> => {
-    dispatch({ type: LOADING_ALL_POSTS, postsLoading: true });
-    return axios
-      .get("/wp/v2/posts?per_page=" + perpage)
-      .then((postsRes: AxiosResponse) => {
-        //Retrieve a list of all Media IDs
-        let mediaIds: [number?] = [];
-        postsRes.data.forEach((post: WPPost) => {
-          mediaIds.push(post.featured_media);
-        });
-        //Retrieve media from WP DB
-        axios
-          .get("/wp/v2/media?include=" + mediaIds.join(","))
-          .then((mediaRes: AxiosResponse) => {
-            let updatedPosts = null;
-            updatedPosts = postsRes.data.map((postObj: WPPost) => {
-              let mediaLinkObj: MediaLinkType = {};
-              mediaRes.data.forEach((media: WPMedia) => {
-                if (media.id === postObj.featured_media) {
-                  mediaLinkObj.media_link = media.guid.rendered;
-                }
-              });
-              return {
-                ...postObj,
-                ...mediaLinkObj,
-              };
-            });
-            dispatch({ type: GET_ALL_POSTS, posts: updatedPosts, postsLoading: false });
-          })
-          .catch((err) => {
-            dispatch({ type: GET_ALL_POSTS, error: err, postsLoading: false });
-          });
-      })
-      .catch((err) => {
-        dispatch({ type: GET_ALL_POSTS, error: err, postsLoading: false });
-      });
-  };
-};
-
 function getMedia(mediaId: number) {
-  return axios.get("/wp/v2/media/" + mediaId);
+  return axios.get(`/wp/v2/media/${mediaId}`);
 }
 
 function getCats(catIds: [number]) {
-  return axios.get("wp/v2/categories?include=" + catIds.join(","));
+  return axios.get(`wp/v2/categories?include=${catIds.join(",")}`);
 }
 
-export const loadSinglePost = (pid: number): ThunkAction<Promise<void>, {}, {}, PostActionTypes> => {
-  return (dispatch: ThunkDispatch<{}, {}, PostActionTypes>): Promise<void> => {
-    return axios
-      .get("/wp/v2/posts/" + pid)
-      .then((postRes: AxiosResponse) => {
-        const post: WPPost = postRes.data;
-        //Retrieve featured image
-        let mediaId = post.featured_media;
-        axiosOrig
-          .all([getMedia(mediaId), getCats(post.categories)])
-          .then(
-            axiosOrig.spread(function (mediaRes, catRes) {
-              let postObject = {
-                ...post,
-                medialink: mediaRes.data.guid.rendered,
-                categoryTags: [...catRes.data],
-              };
-              dispatch({ type: SINGLE_POST_ACTION, post: postObject, postsLoading: false });
-            }),
-          )
-          .catch((err) => {
-            dispatch({ type: SINGLE_POST_ACTION, error: err, postsLoading: false });
-          });
-      })
-      .catch((err) => {
-        dispatch({ type: SINGLE_POST_ACTION, error: err, postsLoading: false });
-      });
-  };
-};
-
-export const searchAllPosts = (term: string): ThunkAction<Promise<void>, {}, {}, PostActionTypes> => {
-  return (dispatch: ThunkDispatch<{}, {}, PostActionTypes>): Promise<void> => {
-    return axios
-      .get("/wp/v2/posts?search=" + term)
-      .then((postResults) => {
-        //Retrieve featured images
-        let mediaIds: [number?] = [];
-        postResults.data.forEach((post: WPPost) => {
-          mediaIds.push(post.featured_media);
+export const loadAllPosts = createAsyncThunk("posts/loadAllPosts", async (perpage: number, { rejectWithValue }) => {
+  const postsResponse = await axios.get(`/wp/v2/posts?per_page=${perpage}`);
+  if (postsResponse) {
+    const mediaIds: [number?] = [];
+    postsResponse.data.forEach((post: WPPost) => {
+      mediaIds.push(post.featured_media);
+    });
+    // Retrieve media from WP DB
+    const mediaRes = await axios.get(`/wp/v2/media?include=${mediaIds.join(",")}`);
+    if (mediaRes) {
+      let updatedPosts = null;
+      updatedPosts = postsResponse.data.map((postObj: WPPost) => {
+        const mediaLinkObj: MediaLinkType = {};
+        mediaRes.data.forEach((media: WPMedia) => {
+          if (media.id === postObj.featured_media) {
+            mediaLinkObj.media_link = media.guid.rendered;
+          }
         });
-        if (mediaIds.length !== 0) {
-          axios
-            .get("/wp/v2/media?include=" + mediaIds.join(","))
-            .then((mediaResults) => {
-              let updatedPosts = null;
-              updatedPosts = postResults.data.map((post: WPPost) => {
-                let mediaLinkObj: MediaLinkType = {};
-                mediaResults.data.forEach((media: WPMedia) => {
-                  if (media.id === post.featured_media) {
-                    mediaLinkObj.media_link = media.guid.rendered;
-                  }
-                });
-                return {
-                  ...post,
-                  ...mediaLinkObj,
-                };
-              });
-              dispatch({ type: SEARCH_POSTS_ACTION, posts: updatedPosts, postsLoading: false });
-            })
-            .catch((error) => {
-              //Attach a placeholder image
-            });
-        }
-      })
-      .catch((err) => {
-        dispatch({ type: SEARCH_POSTS_ACTION, error: err, postsLoading: false });
+        return {
+          ...postObj,
+          ...mediaLinkObj,
+        };
       });
-  };
-};
+      return { type: GET_ALL_POSTS, posts: updatedPosts, postsLoading: false };
+    }
+  }
+  return rejectWithValue({ type: GET_ALL_POSTS, posts: [], postsLoading: false, error: "Error loading posts" });
+});
+
+export const loadSinglePost = createAsyncThunk("posts/loadSinglePost", async (pid: number, { rejectWithValue }) => {
+  const postResponse = await axios.get(`/wp/v2/posts/${pid}`);
+  if (postResponse) {
+    const post: WPPost = postResponse.data;
+    // Retrieve featured image
+    const mediaId = post.featured_media;
+    const [mediaRes, catRes] = await axiosOrig.all([getMedia(mediaId), getCats(post.categories)]);
+    const postObject = {
+      ...post,
+      medialink: mediaRes.data.guid.rendered,
+      categoryTags: [...catRes.data],
+    };
+    return { type: SINGLE_POST_ACTION, post: postObject, postsLoading: false };
+  }
+  return rejectWithValue({ type: SINGLE_POST_ACTION, post: null, postsLoading: false, error: "Error loading post" });
+});
+
+export const searchAllPosts = createAsyncThunk("posts/searchAllPosts", async (term: string, { rejectWithValue }) => {
+  const postResults = await axios.get(`/wp/v2/posts?search=${term}`);
+  if (postResults?.data) {
+    const mediaIds: [number?] = [];
+    postResults.data.forEach((post: WPPost) => {
+      mediaIds.push(post.featured_media);
+    });
+    if (mediaIds.length !== 0) {
+      const mediaResults = await axios.get(`/wp/v2/media?include${mediaIds.join(",")}`);
+      if (mediaResults?.data) {
+        let updatedPosts = null;
+        updatedPosts = postResults.data.map((post: WPPost) => {
+          const mediaLinkObj: MediaLinkType = {};
+          mediaResults.data.forEach((media: WPMedia) => {
+            if (media.id === post.featured_media) {
+              mediaLinkObj.media_link = media.guid.rendered;
+            }
+          });
+          return {
+            ...post,
+            ...mediaLinkObj,
+          };
+        });
+
+        return { type: SEARCH_POSTS_ACTION, posts: updatedPosts, postsLoading: false };
+      }
+    }
+  }
+  return rejectWithValue({ type: SEARCH_POSTS_ACTION, posts: [], postsLoading: false, error: "No posts found" });
+});

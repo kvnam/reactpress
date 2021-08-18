@@ -3,24 +3,25 @@ import { useRPDispatch, useRPSelector } from "@store/store";
 
 import { WPPage } from "@rptypes/wptypes";
 import { AllPagesType } from "@rptypes/pages.types";
-import { getAllPagesAction } from "@store/actions/pages.actions";
+import { getAllPages } from "@store/actions/pages.actions";
+import { RootState } from "@/index";
 
 type RPPage = {
   [key: string]: WPPage;
 };
 
 const useWPPages = () => {
-  const pagesState: AllPagesType = useRPSelector((state: any) => state.pagesRed);
+  const pagesState: AllPagesType = useRPSelector((state: RootState) => state.pages);
   const [pages, setPages] = useState({});
 
   const dispatch = useRPDispatch();
 
   useEffect(() => {
-    dispatch(getAllPagesAction());
+    dispatch(getAllPages());
   }, []);
 
   useEffect(() => {
-    if (!pagesState?.pages?.length) {
+    if (!pagesState?.pages?.length || (pagesState?.pages?.length && Object.keys(pages).length)) {
       return;
     }
     const { pages: pagesData = [] } = pagesState;

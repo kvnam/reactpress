@@ -1,21 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AxiosResponse } from "axios";
 import axios from "@/axios-wp";
 
-import { GETALLPAGESACTION, GET_ALL_PAGES } from "@rptypes/pages.types";
 import type { WPPage } from "@rptypes/wptypes";
 
-export const getAllPagesAction = createAsyncThunk(GET_ALL_PAGES, async () => {
-  return (): Promise<GETALLPAGESACTION> => {
-    return axios.get("/wp/v2/pages").then((pagesRes: AxiosResponse) => {
-      const finalPages: [WPPage?] = [];
-      pagesRes.data.forEach((page: WPPage) => {
-        // TODO: Add processing of page
-        finalPages.push(page);
-      });
-      return { type: GET_ALL_PAGES, pages: finalPages, pagesLoading: false };
+export const getAllPages = createAsyncThunk("pages/getAllPages", async () => {
+  const pagesRes = await axios.get("wp/v2/pages");
+  if (pagesRes) {
+    const finalPages: WPPage[] = [];
+    pagesRes.data.forEach((page: WPPage) => {
+      // TODO: Add processing of page
+      finalPages.push(page);
     });
-  };
+    return { pages: finalPages, pagesLoading: false };
+  }
+  return { pages: [], pagesLoading: false };
 });
 
 export const getPage = () => {

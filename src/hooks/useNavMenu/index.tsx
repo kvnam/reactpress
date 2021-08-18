@@ -14,9 +14,11 @@ const useNavMenu = () => {
       return;
     }
     const { pages = {} } = wpPages;
+    const pagesSlugs = Object.keys(pages);
     const updatedNavItems: Array<NavItemType> = [...navItems];
     const slugsInNavItems: Array<string> = updatedNavItems.map((item) => item.link);
-    pages.forEach((page: WPPage) => {
+    pagesSlugs.forEach((pageSlug: string) => {
+      const page = pages[pageSlug];
       if (!slugsInNavItems.includes(`/${page.slug}`)) {
         updatedNavItems.push({
           link: `/${page.slug}`,

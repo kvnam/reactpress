@@ -10,28 +10,25 @@ export interface RPPost extends WPPost {
   categoryTags: [WPCategory];
 }
 
-export interface LoadingPostsAction {
+export type LoadingPostsAction = {
   type: typeof LOADING_ALL_POSTS;
   postsLoading: boolean;
-}
+};
 
-export interface GetAllPostsAction {
-  type: typeof GET_ALL_POSTS;
+export type GetAllPostsAction = {
   posts: [WPPost] | any | null;
   postsLoading?: boolean;
   error?: Error | any | null;
-}
+};
 
-export interface GetSinglePostAction {
-  type: typeof SINGLE_POST_ACTION;
-  post?: WPPost | any | null;
+export type GetSinglePostAction = {
+  post?: RPPost | any | null;
   error?: Error | any | null;
   postsLoading?: boolean;
-}
+};
 
-export interface SearchPostsAction {
-  type: typeof SEARCH_POSTS_ACTION;
+export type SearchPostsAction = {
   posts?: [WPPost] | any | null;
   postsLoading?: boolean;
   error?: Error | any | null;
-}
+};

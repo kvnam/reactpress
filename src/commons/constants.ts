@@ -17,6 +17,12 @@ export const baseNavItems: NavItemType[] = [
     linkName: "SIGN UP",
     isVisible: "noauth",
   },
+  {
+    link: "/post",
+    linkName: "Post",
+    isVisible: "all",
+    component: "SinglePost",
+  },
 ];
 
 export const APP_NAME = "ReatPress";

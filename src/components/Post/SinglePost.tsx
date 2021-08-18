@@ -1,16 +1,17 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Badge } from "reactstrap";
 import reactHtmlParser from "react-html-parser";
 import { useLocation } from "react-router-dom";
 
-import * as actionMethods from "../../store/actions/index.actions";
-import { RPPost } from "../../types/posts.types";
+import { RootState } from "@/index";
+import { useRPSelector, useRPDispatch } from "@store/store";
+import * as actionMethods from "@store/actions/index.actions";
+import { RPPost } from "@rptypes/posts.types";
 
 const SinglePost = () => {
-  const postsState = useSelector((state: any) => state.postsRed);
+  const postsState = useRPSelector((state: RootState) => state.posts);
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useRPDispatch();
   const [post, setPost] = useState<RPPost | null>(null);
   const [content, setContent] = useState<ReactElement | null>(null);
 
@@ -23,10 +24,10 @@ const SinglePost = () => {
   }, []);
 
   useEffect(() => {
-    if (!postsState?.singlePost || postsState.singlePost.id === post?.id) {
+    if (!postsState?.post || post) {
       return;
     }
-    setPost(postsState.singlePost);
+    setPost(postsState.post);
   }, [postsState]);
 
   useEffect(() => {

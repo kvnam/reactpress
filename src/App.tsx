@@ -3,15 +3,15 @@ import DOMPurify from "dompurify";
 import { AnimatedSwitch } from "react-router-transition";
 import { Route } from "react-router-dom";
 
-import Navigation from "./containers/Navigation/Navigation";
-import Blog from "./containers/Blog/Blog";
-import SinglePost from "./components/Post/SinglePost";
+import Navigation from "@containers/Navigation/Navigation";
+import Blog from "@containers/Blog/Blog";
+import SinglePost from "@components/Post/SinglePost";
 // import Auth from "./containers/Auth/Auth";
 
-import useWPPages from "./hooks/useWPPages";
-import WPPage from "./components/WPPage";
-import { RPPagesHookType } from "./types/pages.types";
-import { baseNavItems } from "./commons/constants";
+import useWPPages from "@hooks/useWPPages";
+import WPPage from "@components/WPPage";
+import { RPPagesHookType } from "@rptypes/pages.types";
+import { baseNavItems } from "@commons/constants";
 import "./App.css";
 
 // TODO: Find a better solution
@@ -38,16 +38,12 @@ function App() {
   const [routes, setRoutes] = useState<ReactElement<any, any>[]>([]); // Final React Router routes
 
   useEffect(() => {
-    if (wpRoutesList?.length || wpPages?.pagesLoading) {
+    if (wpRoutesList?.length || wpPages?.pagesLoading || !Object.keys(wpPages?.pages).length) {
       return;
     }
     const { pages } = wpPages || {};
-    if (!Object.keys(pages).length) {
-      setWPRoutesList([]); // No pages found
-      return;
-    }
     const pageSlugs = Object.keys(pages);
-    const newRoutesList: ReactElement<any, any>[] = pageSlugs.map((slug) => {
+    const newRoutesList: ReactElement[] = pageSlugs.map((slug) => {
       const pageDetails = pages[slug];
       return (
         <Route
@@ -65,7 +61,7 @@ function App() {
   }, [wpPages]);
 
   useEffect(() => {
-    if (!wpRoutesList) {
+    if (!wpRoutesList?.length) {
       return;
     }
     const staticRoutes: ReactElement<any, any>[] = baseNavItems.map((item) => (
@@ -84,7 +80,12 @@ function App() {
       <div>
         <Navigation />
       </div>
-      <AnimatedSwitch atEnter={{ opacity: 0 }} atLeave={{ opacity: 0 }} atActive={{ opacity: 1 }} className="switch-wrapper">
+      <AnimatedSwitch
+        atEnter={{ opacity: 0 }}
+        atLeave={{ opacity: 0 }}
+        atActive={{ opacity: 1 }}
+        className="switch-wrapper"
+      >
         {routes}
       </AnimatedSwitch>
     </div>

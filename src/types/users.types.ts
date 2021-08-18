@@ -17,7 +17,6 @@ export interface LoadingUsersAction {
 }
 
 export interface UserSignUpAction {
-  type: typeof USER_SIGNUP_ACTION;
   userLoading: boolean;
   user?: User;
   redirectURL?: string;

@@ -7,11 +7,12 @@ import type {
   GetSinglePostAction,
   SearchPostsAction,
 } from "@rptypes/posts.types";
+import { loadAllPosts, searchAllPosts, loadSinglePost } from "@store/actions/index.actions";
 
 const initialState = {
   posts: null,
   error: null,
-  singlePost: null,
+  post: null,
   totalPages: 0,
   totalPosts: 0,
   perPage: 5,
@@ -21,28 +22,21 @@ const initialState = {
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {
-    LOADING_ALL_POSTS: (state, action: PayloadAction<LoadingPostsAction>) => {
-      state.postsLoading = !!action.payload.postsLoading;
-    },
-    GET_ALL_POSTS: (state, action: PayloadAction<GetAllPostsAction>) => {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(loadAllPosts.fulfilled, (state, action: PayloadAction<GetAllPostsAction>) => {
+      state.posts = action.payload.posts;
       state.postsLoading = false;
-      state.posts = action.payload.posts || null;
-      state.error = action.payload.error;
-    },
-    SINGLE_POST_ACTION: (state, action: PayloadAction<GetSinglePostAction>) => {
+    });
+    builder.addCase(searchAllPosts.fulfilled, (state, action: PayloadAction<SearchPostsAction>) => {
+      state.posts = action.payload.posts;
       state.postsLoading = false;
-      state.singlePost = action.payload.post || null;
-      state.error = action.payload.error;
-    },
-    SEARCH_POSTS_ACTION: (state, action: PayloadAction<SearchPostsAction>) => {
+    });
+    builder.addCase(loadSinglePost.fulfilled, (state, action: PayloadAction<GetSinglePostAction>) => {
+      state.post = action.payload.post;
       state.postsLoading = false;
-      state.posts = action.payload.posts || null;
-      state.error = action.payload.error;
-    },
+    });
   },
 });
-
-export const getAllPostsState = (state: RootState) => state.postsRed;
 
 export default postsSlice.reducer;
