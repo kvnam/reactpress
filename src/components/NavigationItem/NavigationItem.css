@@ -1,7 +1,7 @@
-.nav-item:not(:last-child){
+.nav-item:not(:last-child) {
   margin-right: 2rem;
 }
 
-.submenu{
+.submenu {
   flex-direction: row-reverse;
 }

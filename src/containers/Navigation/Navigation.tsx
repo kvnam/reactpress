@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Navbar, NavbarBrand, Nav } from "reactstrap";
 
 import NavigationItem from "../../components/NavigationItem/NavigationItem";
@@ -8,15 +8,16 @@ import "../../components/NavigationItem/NavigationItem.css";
 
 // TODO: Add authentication
 
-const Navigation: React.FC  = () => {
-
+const Navigation: React.FC = () => {
   const navMenuList = useNavMenu();
 
-  const navList = navMenuList
-    .map((item) => {
-      return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
-    })
-    .filter((v) => !!v);
+  const navList = useMemo(() => {
+    return navMenuList
+      .map((item) => {
+        return <NavigationItem key={item.link} link={item.link} linkName={item.linkName} />;
+      })
+      .filter((v) => !!v);
+  }, [navMenuList]);
 
   return (
     <>

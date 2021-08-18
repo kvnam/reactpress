@@ -1,44 +1,29 @@
-import React, { useState, SyntheticEvent, useEffect, ReactNode } from "react";
+import React, { useState, SyntheticEvent, useEffect } from "react";
 import { Container, Row, Col, InputGroup, InputGroupAddon, Button, Alert } from "reactstrap";
 import { Spin } from "antd";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
 
-import { WPPost } from "../../types/wptypes";
-import * as actionMethods from "../../store/actions/index.actions";
-import Post from "../../components/Post/Post";
-
-type BlogState = {
-  searchTerm: string;
-  onAlert: boolean;
-  internalError: string | null;
-};
-type BlogProps = {
-  loadAllPosts: Function;
-  searchAllPosts: Function;
-  posts: [WPPost];
-  postsLoading: boolean;
-  error: Error | any;
-  children?: ReactNode;
-};
-
-interface DispatchProps {
-  loadAllPosts: (perpage: number) => void;
-  searchAllPosts: (term: string) => void;
-}
+import { RootState } from "@/index";
+import { useRPSelector, useRPDispatch } from "store/store";
+import { WPPost } from "@rptypes/wptypes";
+import * as actionMethods from "@store/actions/index.actions";
+import Post from "@components/Post/Post";
 
 type PostsList = JSX.Element[] | [];
 
-const Blog: React.FC<BlogProps> = (props: BlogProps) => {
+const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [onAlert, setOnAlert] = useState(false);
   const [internalError, setInternalError] = useState("");
-  const [postsList, setPostsList] = useState<PostsList | null>(null);
+  const [postsList, setPostsList] = useState<PostsList>([]);
 
   const history = useHistory();
 
-  const { postsLoading } = props;
+  const postsState = useRPSelector((state: RootState) => state.posts);
+
+  const dispatch = useRPDispatch();
+
+  const { postsLoading, posts = [], error } = postsState;
 
   const resetError = () => {
     setInternalError("");
@@ -58,7 +43,7 @@ const Blog: React.FC<BlogProps> = (props: BlogProps) => {
 
   const onSearchHandler = () => {
     if (searchTerm !== "") {
-      props.searchAllPosts(searchTerm);
+      dispatch(actionMethods.searchAllPosts(searchTerm));
     } else {
       setInternalError("Search Term cannot be empty!");
       setOnAlert(true);
@@ -71,32 +56,33 @@ const Blog: React.FC<BlogProps> = (props: BlogProps) => {
   };
 
   useEffect(() => {
-    props.loadAllPosts(5);
+    dispatch(actionMethods.loadAllPosts(5));
   }, []);
 
   useEffect(() => {
-    if (!props.postsLoading && props.posts?.length) {
-      const updatedPosts = props.posts.map((post: WPPost) => {
-        return (
-          <Post
-            key={post.id}
-            title={post.title.rendered}
-            excerpt={post.excerpt.rendered}
-            medialink={post.media_link}
-            postId={post.id}
-            onReadMore={readMoreHandler}
-          />
-        );
-      });
-      setPostsList(updatedPosts);
+    if (postsLoading || !posts?.length || postsList.length) {
+      return;
     }
-  }, [props.posts, props.postsLoading]);
+    const updatedPosts = posts.map((post: WPPost) => {
+      return (
+        <Post
+          key={post.id}
+          title={post.title.rendered}
+          excerpt={post.excerpt.rendered}
+          medialink={post.media_link}
+          postId={post.id}
+          onReadMore={readMoreHandler}
+        />
+      );
+    });
+    setPostsList(updatedPosts);
+  }, [posts, postsLoading]);
 
   return (
     <Container>
-      {props.error ? (
+      {error ? (
         <Alert color="danger" isOpen={onAlert} toggle={toggleAlertShow}>
-          {props.error}
+          {error}
         </Alert>
       ) : null}
       {internalError ? (
@@ -123,23 +109,4 @@ const Blog: React.FC<BlogProps> = (props: BlogProps) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    posts: state.postsRed.posts,
-    error: state.postsRed.error,
-    postsLoading: state.postsRed.postsLoading,
-  };
-};
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => {
-  return {
-    loadAllPosts: (perpage: number) => {
-      dispatch(actionMethods.loadAllPosts(perpage));
-    },
-    searchAllPosts: (term: string) => {
-      dispatch(actionMethods.searchAllPosts(term));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Blog);
+export default Blog;

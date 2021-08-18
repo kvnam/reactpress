@@ -3,15 +3,16 @@ import { NavLink } from "react-router-dom";
 import { NavItem } from "reactstrap";
 
 type NavItemProps = {
-  link : string,
-  linkName: string
-}
+  link: string;
+  linkName: string;
+};
 
 const navigationItem = (props: NavItemProps) => {
+  const { link, linkName } = props;
   return (
-      <NavItem className="nav-item">
-        <NavLink to={props.link}>{props.linkName}</NavLink>
-      </NavItem>
+    <NavItem className="nav-item">
+      <NavLink to={link}>{linkName}</NavLink>
+    </NavItem>
   );
 };
 

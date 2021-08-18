@@ -1,24 +1,21 @@
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import axiosOrig, { AxiosResponse } from "axios";
-import axios from "../../axios-wp";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "@/axios-wp";
 
-import { PAGEACTIONTYPES, GET_ALL_PAGES } from '../../types/pages.types';
-import { WPPage } from "../../types/wptypes";
+import type { WPPage } from "@rptypes/wptypes";
 
-export const getAllPages = (): ThunkAction<Promise<void>, {}, {}, PAGEACTIONTYPES>  => {
-
-  return (dispatch: ThunkDispatch<{}, {}, PAGEACTIONTYPES>): Promise<void> => {
-    return axios
-    .get("/wp/v2/pages")
-    .then((pagesRes: AxiosResponse) => {
-      const finalPages: [WPPage?]= [];
-      pagesRes.data.forEach((page: WPPage) => {
-        console.log("🚀 ~ file: pages.actions.ts ~ line 18 ~ pagesRes.data.forEach ~ page", page)
-        // TODO: Add processing of page
-        finalPages.push(page);
-      });
-      dispatch({ type: GET_ALL_PAGES, pages: finalPages, pagesLoading: false });
+export const getAllPages = createAsyncThunk("pages/getAllPages", async () => {
+  const pagesRes = await axios.get("wp/v2/pages");
+  if (pagesRes) {
+    const finalPages: WPPage[] = [];
+    pagesRes.data.forEach((page: WPPage) => {
+      // TODO: Add processing of page
+      finalPages.push(page);
     });
-  };
-    
-}
+    return { pages: finalPages, pagesLoading: false };
+  }
+  return { pages: [], pagesLoading: false };
+});
+
+export const getPage = () => {
+  return { type: "GET_PAGE", page: {}, pageLoading: false };
+};

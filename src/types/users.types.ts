@@ -1,5 +1,3 @@
-import { WPUserType } from "./wptypes";
-
 export const VALIDATE_TOKEN_ACTION = "VALIDATE_TOKEN_ACTION";
 export const USER_SIGNUP_ACTION = "USER_SIGNUP_ACTION";
 export const USER_SIGNIN_ACTION = "USER_SIGNIN_ACTION";
@@ -13,42 +11,33 @@ export type User = {
   displayname?: string;
 };
 
-interface LoadingUsersAction {
+export type LoadingUsersAction = {
   type: typeof USER_LOADING_ACTION;
   userLoading: boolean;
-}
+};
 
-interface UserSignUpAction {
-  type: typeof USER_SIGNUP_ACTION;
+export type UserSignUpAction = {
   userLoading: boolean;
   user?: User;
   redirectURL?: string;
   error?: Error | any | null;
-}
+};
 
-interface UserSignInAction {
-  type: typeof USER_SIGNIN_ACTION;
+export type UserSignInAction = {
   userLoading: boolean;
   user?: User;
   token?: string;
   error?: Error | any | null;
-}
+};
 
-interface ValidateUserAction {
-  type: typeof VALIDATE_TOKEN_ACTION;
+export type ValidateUserAction = {
   token?: string;
   email?: string;
   redirectTo?: string;
   error?: Error | any | null;
-}
+};
 
-interface UserSignOutAction {
-  type: typeof USER_SIGNOUT_ACTION;
-}
-
-export type UserActionTypes =
-  | LoadingUsersAction
-  | UserSignUpAction
-  | UserSignInAction
-  | ValidateUserAction
-  | UserSignOutAction;
+export type UserSignoutAction = {
+  status: boolean;
+  error?: Error | any | null;
+};

@@ -17,9 +17,22 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "noFallthroughCasesInSwitch": true
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["components/*"],
+      "@containers/*": ["containers/*"],
+      "@commons/*": ["commons/*"],
+      "@hook/*s": ["hooks/*"],
+      "@store/*": ["store/*"],
+      "@rptypes/*": ["types/*"],
+    }
   },
+  "exclude": [
+    "src/**/*.js"
+  ],
   "include": [
     "src",
     "setupTest.js"
