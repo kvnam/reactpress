@@ -10,7 +10,7 @@ import SinglePost from "@components/Post/SinglePost";
 
 import useWPPages from "@hooks/useWPPages";
 import WPPage from "@components/WPPage";
-import { RPPagesHookType } from "@rptypes/pages.types";
+import type { RPPagesHookType } from "@rptypes/pages.types";
 import { baseNavItems } from "@commons/constants";
 import "./App.css";
 

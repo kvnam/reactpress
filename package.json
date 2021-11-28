@@ -26,11 +26,9 @@
   "scripts": {
     "start": "craco start",
     "build": "react-scripts build",
-    "test": "react-scripts test --colors --verbose ",
-    "test-jest": "jest",
+    "test": "jest",
     "eject": "react-scripts eject",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test:watch": "jest --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,8 +40,27 @@
     "not op_mini all"
   ],
   "jest": {
+    "setupFiles": [
+      "./setupTests.js"
+    ],
     "transform": {
       "\\.(ts|tsx)$": "./test-preprocessor.js"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!variables/.*)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
     },
     "snapshotSerializers": [
       "enzyme-to-json"

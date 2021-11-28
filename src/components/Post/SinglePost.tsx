@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import { RootState } from "@/index";
 import { useRPSelector, useRPDispatch } from "@store/store";
 import * as actionMethods from "@store/actions/index.actions";
-import { RPPost } from "@rptypes/posts.types";
+import type { RPPost } from "@rptypes/posts.types";
 
 const SinglePost = () => {
   const postsState = useRPSelector((state: RootState) => state.posts);
@@ -24,7 +24,7 @@ const SinglePost = () => {
   }, []);
 
   useEffect(() => {
-    if (!postsState?.post || post) {
+    if (!postsState?.post) {
       return;
     }
     setPost(postsState.post);
@@ -36,10 +36,10 @@ const SinglePost = () => {
     }
     let contentVal = null;
     let catTags = null;
-    catTags = post.categoryTags.map((cats) => {
+    catTags = (post.categoryTags || []).map((cats) => {
       return (
-        <h3 key={cats.id} className="cat-tags">
-          <Badge color="primary">{cats.name}</Badge>
+        <h3 key={cats?.id} className="cat-tags">
+          <Badge color="primary">{cats?.name || ""}</Badge>
         </h3>
       );
     });
