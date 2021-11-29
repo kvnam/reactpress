@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
@@ -27,11 +27,11 @@
       "@commons/*": ["commons/*"],
       "@hook/*s": ["hooks/*"],
       "@store/*": ["store/*"],
-      "@rptypes/*": ["types/*"],
+      "@rptypes/*": ["types/*"]
     }
   },
   "exclude": [
     "src/**/*.js"
   ],
-  "include": [ "src", "setupTests.js"  ]
+  "include": [ "src" ]
 }

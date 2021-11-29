@@ -27,6 +27,7 @@
     "start": "craco start",
     "build": "react-scripts build",
     "test": "jest",
+    "rs-test": "react-scripts test",
     "eject": "react-scripts eject",
     "test:watch": "jest --watch"
   },
@@ -41,13 +42,13 @@
   ],
   "jest": {
     "setupFiles": [
-      "./setupTests.js"
+      "./src/setupTests.js"
     ],
     "transform": {
-      "\\.(ts|tsx)$": "./test-preprocessor.js"
+      "\\.(ts|tsx)$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!variables/.*)"
+      "node_modules"
     ],
     "moduleFileExtensions": [
       "js",
@@ -67,6 +68,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^26.0.23",
     "@types/node": "^16.0.0",
@@ -92,6 +95,7 @@
     "pretty-quick": "^3.1.1",
     "react-test-renderer": "^16.13.0",
     "redux-mock-store": "^1.5.4",
+    "ts-jest":"^26.0.1",
     "typescript-plugin-styled-components": "^2.0.0"
   },
   "prettier": {
