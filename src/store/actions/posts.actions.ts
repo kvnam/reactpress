@@ -2,20 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosOrig from "axios";
 import axios from "@/axios-wp";
 
-import { SINGLE_POST_ACTION, SEARCH_POSTS_ACTION, GET_ALL_POSTS } from "@rptypes/posts.types";
-import { WPMedia, WPPost } from "@rptypes/wptypes";
+import { SINGLE_POST_ACTION, SEARCH_POSTS_ACTION, GET_ALL_POSTS, RPPost } from "@rptypes/posts.types";
+import { WPMedia, WPPost, WPCategory } from "@rptypes/wptypes";
 
 type MediaLinkType = {
   media_link?: string;
 };
-
-function getMedia(mediaId: number) {
-  return axios.get(`/wp/v2/media/${mediaId}`);
-}
-
-function getCats(catIds: [number]) {
-  return axios.get(`wp/v2/categories?include=${catIds.join(",")}`);
-}
 
 export const loadAllPosts = createAsyncThunk("posts/loadAllPosts", async (perpage: number, { rejectWithValue }) => {
   const postsResponse = await axios.get(`/wp/v2/posts?per_page=${perpage}`);
@@ -50,14 +42,20 @@ export const loadSinglePost = createAsyncThunk("posts/loadSinglePost", async (pi
   const postResponse = await axios.get(`/wp/v2/posts/${pid}`);
   if (postResponse) {
     const post: WPPost = postResponse.data;
+    const postObject: RPPost = {
+      ...post,
+    };
     // Retrieve featured image
     const mediaId = post.featured_media;
-    const [mediaRes, catRes] = await axiosOrig.all([getMedia(mediaId), getCats(post.categories)]);
-    const postObject = {
-      ...post,
-      medialink: mediaRes.data.guid.rendered,
-      categoryTags: [...catRes.data],
-    };
+    if (mediaId) {
+      const mediaRes = await axios.get(`/wp/v2/media/${mediaId}`);
+      postObject.medialink = mediaRes.data.guid.rendered;
+    }
+    if (post.categories?.length) {
+      const categoriesResp = await axios.get(`wp/v2/categories?include=${post.categories.join(",")}`);
+      postObject.categoryTags = [...categoriesResp.data];
+    }
+
     return { type: SINGLE_POST_ACTION, post: postObject, postsLoading: false };
   }
   return rejectWithValue({ type: SINGLE_POST_ACTION, post: null, postsLoading: false, error: "Error loading post" });

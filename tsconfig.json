@@ -27,14 +27,11 @@
       "@commons/*": ["commons/*"],
       "@hook/*s": ["hooks/*"],
       "@store/*": ["store/*"],
-      "@rptypes/*": ["types/*"],
+      "@rptypes/*": ["types/*"]
     }
   },
   "exclude": [
     "src/**/*.js"
   ],
-  "include": [
-    "src",
-    "setupTest.js"
-  ]
+  "include": [ "src" ]
 }

@@ -6,8 +6,8 @@ export const SINGLE_POST_ACTION = "SINGLE_POST_ACTION";
 export const SEARCH_POSTS_ACTION = "SEARCH_POSTS_ACTION";
 
 export interface RPPost extends WPPost {
-  medialink: string;
-  categoryTags: [WPCategory];
+  medialink?: string;
+  categoryTags?: WPCategory[];
 }
 
 export type LoadingPostsAction = {

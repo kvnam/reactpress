@@ -26,11 +26,10 @@
   "scripts": {
     "start": "craco start",
     "build": "react-scripts build",
-    "test": "react-scripts test --colors --verbose ",
-    "test-jest": "jest",
+    "test": "jest",
+    "rs-test": "react-scripts test",
     "eject": "react-scripts eject",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test:watch": "jest --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,14 +41,35 @@
     "not op_mini all"
   ],
   "jest": {
+    "setupFiles": [
+      "./src/setupTests.js"
+    ],
     "transform": {
-      "\\.(ts|tsx)$": "./test-preprocessor.js"
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
     },
     "snapshotSerializers": [
       "enzyme-to-json"
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^26.0.23",
     "@types/node": "^16.0.0",
@@ -75,6 +95,7 @@
     "pretty-quick": "^3.1.1",
     "react-test-renderer": "^16.13.0",
     "redux-mock-store": "^1.5.4",
+    "ts-jest":"^26.0.1",
     "typescript-plugin-styled-components": "^2.0.0"
   },
   "prettier": {
