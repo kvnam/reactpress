@@ -6,7 +6,7 @@
     "@craco/craco": "^6.0.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@types/react-redux": "^7.1.18",
-    "antd": "^4.4.1",
+    "antd": "^4.17.0",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
     "dompurify": "^2.3.0",
