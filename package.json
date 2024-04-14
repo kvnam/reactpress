@@ -9,7 +9,7 @@
     "antd": "^4.4.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
-    "dompurify": "^2.3.0",
+    "dompurify": "^2.4.9",
     "prop-types": "^15.7.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
